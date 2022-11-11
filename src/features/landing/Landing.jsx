@@ -1,7 +1,8 @@
 import React from "react";
 import { Stack } from "@mui/material";
 
-import { Header, Navbar } from "./components";
+import { Navbar } from "../../components";
+import { Header } from "./components";
 
 const Landing = () => {
   return (

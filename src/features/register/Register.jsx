@@ -1,6 +1,7 @@
 import { Stack } from "@mui/material";
 
-import { Forms, Navbar } from "./components";
+import { Navbar } from "../../components";
+import { Forms } from "./components";
 
 const Register = () => {
   return (

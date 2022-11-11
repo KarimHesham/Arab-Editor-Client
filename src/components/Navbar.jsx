@@ -3,8 +3,8 @@ import { AppBar, IconButton, Toolbar } from "@mui/material";
 import { MdBrightness6 } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
-import logo from "../../../assets/arab-logo.png";
-import { asyncToggleTheme } from "../../../store/reducers/themeSlice";
+import logo from "../assets/arab-logo.png";
+import { asyncToggleTheme } from "../store/reducers/themeSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
