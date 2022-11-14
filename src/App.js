@@ -6,8 +6,7 @@ import { CacheProvider } from "@emotion/react";
 import { useSelector } from "react-redux";
 
 import { cacheRtl, getDesignTokens } from "./theme";
-import { Register } from "./features/register";
-import { Landing } from "./features/landing";
+import { Home, Landing, Register } from "./features";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -31,6 +30,7 @@ function App() {
             <Routes>
               <Route path="/" exact element={<Landing />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/home" element={<Home />} />
             </Routes>
           </BrowserRouter>
         </CssBaseline>

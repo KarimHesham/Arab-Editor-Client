@@ -19,3 +19,7 @@ export const forgetPasswordValidation = yup.object().shape({
     .email("يرجى إدخال بريد إلكتروني صحيح")
     .required("يرجى إدخال البريد الإلكتروني"),
 });
+
+export const pageNameValidation = yup.object().shape({
+  name: yup.string().required("يرجى إدخال اسم الصقحة"),
+});
