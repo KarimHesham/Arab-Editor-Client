@@ -1,3 +1,3 @@
-import { PagesService } from "./db/DatabaseService";
+import { UsersService, PagesService } from "./db/DatabaseService";
 
-export { PagesService };
+export { UsersService, PagesService };
