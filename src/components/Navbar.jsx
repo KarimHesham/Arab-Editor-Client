@@ -4,7 +4,7 @@ import { MdBrightness6 } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
 import logo from "../assets/arab-logo.png";
-import { asyncToggleTheme } from "../store/reducers/themeSlice";
+import { asyncToggleTheme } from "../redux/reducers/themeSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
