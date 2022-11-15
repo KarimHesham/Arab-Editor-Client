@@ -54,5 +54,5 @@ class DatabaseService {
   };
 }
 
-export const UsersService = new UsersService("users");
+export const UsersService = new DatabaseService("users");
 export const PagesService = new DatabaseService("pages");
