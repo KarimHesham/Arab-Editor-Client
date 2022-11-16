@@ -10,7 +10,7 @@ import { auth } from "../../config";
 
 const googleProvider = new GoogleAuthProvider();
 
-class AuthService {
+class AuthenticationService {
   // Actions available in auth service
   Action = {
     SignIn: "login",
@@ -87,3 +87,5 @@ class AuthService {
     signOut(auth);
   };
 }
+
+export const AuthService = new AuthenticationService();

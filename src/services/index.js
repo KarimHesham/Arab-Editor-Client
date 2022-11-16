@@ -1,3 +1,4 @@
+import { AuthService } from "./auth/AuthService";
 import { UsersService, PagesService } from "./db/DatabaseService";
 
-export { UsersService, PagesService };
+export { AuthService, UsersService, PagesService };
