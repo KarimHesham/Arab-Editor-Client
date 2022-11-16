@@ -9,8 +9,8 @@ import {
   forgetPasswordValidation,
 } from "./../../../utils/validation";
 import ForgetPassModal from "./ForgetPassModal";
+import { login, register, resetPassword } from "../services/auth";
 
-// Note: forgetPassword is not submitting
 // Note: may add confirm password in signUp & eye icons in password input
 const Forms = () => {
   // formType: signUp | signIn | forgetPassword
@@ -36,6 +36,17 @@ const Forms = () => {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
+      const payload = {
+        email: values.email,
+        password: values.password,
+      };
+
+      formType === "signIn"
+        ? login("local", payload)
+        : formType === "signUp"
+        ? register("local", payload)
+        : resetPassword(payload.email);
+
       actions.resetForm();
     },
   });
@@ -76,6 +87,7 @@ const Forms = () => {
                 size="large"
                 startIcon={<FcGoogle />}
                 fullWidth
+                onClick={() => login("google", "")}
               >
                 حساب جوجل
               </Button>
