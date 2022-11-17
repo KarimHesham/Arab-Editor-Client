@@ -40,6 +40,7 @@ class DatabaseService {
 
   // save a new document in the database
   create = async (data) => {
+    console.log("1");
     return await this.collection.add(data);
   };
 

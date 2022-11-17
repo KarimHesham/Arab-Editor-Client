@@ -9,20 +9,18 @@ import {
   forgetPasswordValidation,
 } from "./../../../utils/validation";
 import ForgetPassModal from "./ForgetPassModal";
-import { login, register, resetPassword } from "../services/auth";
+import { authenticate } from "../services/auth";
 
 // Note: may add confirm password in signUp & eye icons in password input
 const Forms = () => {
   // formType: signUp | signIn | forgetPassword
-  const [formType, setFormType] = useState("signUp");
+  const [formType, setFormType] = useState("register");
 
   const initialValues =
-    formType !== "forgetPassword" ? { email: "", password: "" } : { email: "" };
+    formType !== "reset" ? { email: "", password: "" } : { email: "" };
 
   const validationSchema =
-    formType !== "forgetPassword"
-      ? loginRegisterValidation
-      : forgetPasswordValidation;
+    formType !== "reset" ? loginRegisterValidation : forgetPasswordValidation;
 
   const {
     values,
@@ -41,11 +39,9 @@ const Forms = () => {
         password: values.password,
       };
 
-      formType === "signIn"
-        ? login("local", payload)
-        : formType === "signUp"
-        ? register("local", payload)
-        : resetPassword(payload.email);
+      formType === "reset"
+        ? authenticate("reset", "", payload.email)
+        : authenticate(formType, "local", payload);
 
       actions.resetForm();
     },
@@ -66,7 +62,7 @@ const Forms = () => {
     setOpenModal(true);
   };
   const handleCloseModal = () => {
-    setFormType("signIn");
+    setFormType("login");
     setOpenModal(false);
   };
 
@@ -79,7 +75,7 @@ const Forms = () => {
           alignItems="center"
           sx={{ width: "90%", maxWidth: "350px" }}
         >
-          {formType === "signUp" || formType === "signIn" ? (
+          {formType === "register" || formType === "login" ? (
             <>
               <Button
                 sx={{ fontSize: "20px" }}
@@ -87,7 +83,7 @@ const Forms = () => {
                 size="large"
                 startIcon={<FcGoogle />}
                 fullWidth
-                onClick={() => login("google", "")}
+                onClick={() => authenticate(formType, "google", "")}
               >
                 حساب جوجل
               </Button>
@@ -113,7 +109,7 @@ const Forms = () => {
               error={errors.email && touched.email}
               helperText={touched.email && errors.email}
             />
-            {formType !== "forgetPassword" && (
+            {formType !== "reset" && (
               <>
                 <TextField
                   sx={{ marginTop: "20px" }}
@@ -138,13 +134,11 @@ const Forms = () => {
               size="large"
               variant="contained"
               fullWidth
-              onClick={
-                formType === "forgetPassword" ? handleOpenModal : undefined
-              }
+              onClick={formType === "reset" ? handleOpenModal : undefined}
             >
-              {formType === "signIn"
+              {formType === "login"
                 ? "تسجيل الدخول"
-                : formType === "forgetPassword"
+                : formType === "reset"
                 ? "تغيير كلمة المرور"
                 : "إنشاء حساب"}
             </Button>
@@ -161,36 +155,36 @@ const Forms = () => {
             )}
           </form>
 
-          {formType === "signIn" && (
+          {formType === "login" && (
             <Link
               component="button"
               variant="subtitle1"
               underline="hover"
-              onClick={() => setFormType("forgetPassword")}
+              onClick={() => setFormType("reset")}
             >
               هل نسيت كلمة السر؟
             </Link>
           )}
-          {formType === "signIn" ? (
+          {formType === "login" ? (
             <Typography component="p" variant="subtitle1">
               لا تمتلك حساب؟{" "}
               <Link
                 component="button"
                 variant="subtitle1"
                 underline="hover"
-                onClick={() => setFormType("signUp")}
+                onClick={() => setFormType("register")}
               >
                 إنشاء حساب جديد
               </Link>
             </Typography>
-          ) : formType === "signUp" ? (
+          ) : formType === "register" ? (
             <Typography component="p" variant="subtitle1">
               هل لديك حساب؟{" "}
               <Link
                 component="button"
                 variant="subtitle1"
                 underline="hover"
-                onClick={() => setFormType("signIn")}
+                onClick={() => setFormType("login")}
               >
                 تسجيل الدخول
               </Link>
@@ -200,7 +194,7 @@ const Forms = () => {
               component="button"
               variant="h4"
               underline="none"
-              onClick={() => setFormType("signIn")}
+              onClick={() => setFormType("login")}
             >
               إلغاء
             </Link>

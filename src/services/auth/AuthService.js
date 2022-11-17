@@ -11,6 +11,8 @@ import { auth } from "../../config";
 const googleProvider = new GoogleAuthProvider();
 
 class AuthenticationService {
+  User;
+
   // Actions available in auth service
   Action = {
     SignIn: "login",
@@ -25,66 +27,63 @@ class AuthenticationService {
       (action === this.Action.SignIn || action === this.Action.Register) &&
       provider === "google"
     ) {
-      this.googleSignIn(payload);
+      return this.googleSignIn();
     }
     switch (action) {
       case this.Action.SignIn:
-        this.signIn(payload);
-        break;
+        return this.signIn(payload);
       case this.Action.Register:
-        this.register(payload);
-        break;
+        return this.register(payload);
       case this.Action.Reset:
-        this.reset(payload);
-        break;
+        return this.reset(payload);
       case this.Action.SignOut:
-        this.signOut();
-        break;
+        return this.signOut();
       default:
         console.log("Invalid Action");
         break;
     }
   };
 
+  // Firebase SDK auth apis
   googleSignIn = async () => {
-    try {
-      await signInWithPopup(auth, googleProvider);
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await signInWithPopup(auth, googleProvider);
+
+    this.User = res.user;
+    return res;
   };
 
   signIn = async (payload) => {
-    try {
-      await signInWithEmailAndPassword(auth, payload.email, payload.password);
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await signInWithEmailAndPassword(
+      auth,
+      payload.email,
+      payload.password
+    );
+
+    this.User = res.user;
+    return res;
   };
 
   register = async (payload) => {
-    try {
-      await createUserWithEmailAndPassword(
-        auth,
-        payload.email,
-        payload.password
-      );
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await createUserWithEmailAndPassword(
+      auth,
+      payload.email,
+      payload.password
+    );
+
+    this.User = res.user;
+    return res;
   };
 
   reset = async (payload) => {
-    try {
-      await sendPasswordResetEmail(auth, payload.email);
-      console.log("Password reset sent...");
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await sendPasswordResetEmail(auth, payload.email);
+
+    return res;
   };
 
   signOut = async () => {
-    signOut(auth);
+    const res = await signOut(auth);
+
+    return res;
   };
 }
 

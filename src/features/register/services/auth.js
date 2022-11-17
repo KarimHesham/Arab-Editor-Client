@@ -1,25 +1,13 @@
 import { AuthService } from "../../../services/auth/AuthService";
 
-export const login = (provider, payload) => {
-  AuthService.authenticate("login", provider, payload)
+export const user = AuthService.user;
+
+export const authenticate = (action, provider, payload) => {
+  AuthService.authenticate(action, provider, payload)
     .then(() => {
-      console.log("Logging in...");
+      console.log(AuthService.User);
     })
     .catch((err) => {
       console.log(err);
     });
-};
-
-export const register = (provider, payload) => {
-  AuthService.authenticate("register", provider, payload)
-    .then(() => {
-      console.log("Registering User...");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-export const resetPassword = (payload) => {
-  AuthService.authenticate("reset", "", payload);
 };
