@@ -87,7 +87,9 @@ const Forms = () => {
                 size="large"
                 startIcon={<FcGoogle />}
                 fullWidth
-                onClick={() => authenticate(formType, "google", "")}
+                onClick={() =>
+                  authenticate(formType, "google", "", dispatch, navigate)
+                }
               >
                 حساب جوجل
               </Button>
