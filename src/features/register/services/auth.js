@@ -1,11 +1,19 @@
+import { setUser } from "../../../redux/reducers/userSlice";
 import { AuthService } from "../../../services/auth/AuthService";
 
 export const user = AuthService.user;
 
-export const authenticate = (action, provider, payload) => {
+export const authenticate = (action, provider, payload, dispatch, navigate) => {
   AuthService.authenticate(action, provider, payload)
     .then(() => {
-      console.log(AuthService.User);
+      dispatch(
+        setUser({
+          id: AuthService.User.uid,
+          email: AuthService.User.email,
+          username: AuthService.User.email.split("@")[0],
+        })
+      );
+      navigate("/home");
     })
     .catch((err) => {
       console.log(err);
