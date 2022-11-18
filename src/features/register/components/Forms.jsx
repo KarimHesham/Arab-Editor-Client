@@ -9,7 +9,7 @@ import {
   forgetPasswordValidation,
 } from "./../../../utils/validation";
 import ForgetPassModal from "./ForgetPassModal";
-import { authenticate } from "../services/auth";
+import { authenticate } from "../../services/auth/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 

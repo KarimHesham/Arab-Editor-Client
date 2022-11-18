@@ -28,6 +28,7 @@ const Navbar = () => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    
     setAnchorEl(null);
   };
 
