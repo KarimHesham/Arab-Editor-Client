@@ -10,7 +10,7 @@ import {
 } from "./../../../utils/validation";
 import ForgetPassModal from "./ForgetPassModal";
 import { authenticate } from "../services/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // Note: may add confirm password in signUp & eye icons in password input
