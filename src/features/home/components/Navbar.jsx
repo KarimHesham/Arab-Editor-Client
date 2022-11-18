@@ -13,13 +13,14 @@ import {
   Typography,
 } from "@mui/material";
 import { MdBrightness6, MdOutlineLogout } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import logo from "../../../assets/arab-logo.png";
 import { asyncToggleTheme } from "../../../redux/reducers/themeSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const activeUser = useSelector((state) => state.user.user);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -54,7 +55,13 @@ const Navbar = () => {
 
           <div>
             <IconButton onClick={handleClick}>
-              <Avatar sx={{ width: 30, height: 30 }} alt="" src="" />
+              <Avatar
+                sx={{ width: 30, height: 30 }}
+                alt=""
+                src={activeUser.photoURL && activeUser.photoURL}
+              >
+                {!activeUser.photoURL && activeUser.username[0].toUpperCase()}
+              </Avatar>
             </IconButton>
             <Menu
               anchorEl={anchorEl}
@@ -75,7 +82,7 @@ const Navbar = () => {
                   مرحبًا
                 </Typography>
                 <Typography component="p" variant="subtitle2" fontWeight={600}>
-                  اسم المستخدم
+                  {activeUser.username}
                 </Typography>
               </Box>
               <Divider />

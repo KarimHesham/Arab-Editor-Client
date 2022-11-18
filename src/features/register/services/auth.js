@@ -11,6 +11,7 @@ export const authenticate = (action, provider, payload, dispatch, navigate) => {
           id: AuthService.User.uid,
           email: AuthService.User.email,
           username: AuthService.User.email.split("@")[0],
+          photoURL: AuthService.User.photoURL,
         })
       );
       navigate("/home");
