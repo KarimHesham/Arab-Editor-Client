@@ -9,9 +9,9 @@ import {
   forgetPasswordValidation,
 } from "./../../../utils/validation";
 import ForgetPassModal from "./ForgetPassModal";
-import { authenticate } from "../../services/auth/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { authenticate } from "../../services/auth/auth";
 
 // Note: may add confirm password in signUp & eye icons in password input
 const Forms = () => {
@@ -38,13 +38,16 @@ const Forms = () => {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
-      const payload = {
-        email: values.email,
-        password: values.password,
-      };
+      const payload =
+        formType !== "reset"
+          ? {
+              email: values.email,
+              password: values.password,
+            }
+          : { email: values.email };
 
       formType === "reset"
-        ? authenticate(formType, "", payload.email)
+        ? authenticate(formType, "", payload, dispatch, navigate)
         : authenticate(formType, "local", payload, dispatch, navigate);
 
       actions.resetForm();
