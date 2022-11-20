@@ -18,7 +18,7 @@ class AuthenticationService {
     SignIn: "login",
     Register: "register",
     Reset: "reset",
-    SignOut: "signout",
+    SignOut: "logout",
   };
 
   // Wrapper method for accessing auth services

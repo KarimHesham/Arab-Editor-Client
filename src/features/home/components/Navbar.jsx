@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Avatar,
@@ -17,9 +17,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import logo from "../../../assets/arab-logo.png";
 import { asyncToggleTheme } from "../../../redux/reducers/themeSlice";
+import { authenticate } from "../../services/auth/auth";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const activeUser = useSelector((state) => state.user.user);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -28,7 +30,6 @@ const Navbar = () => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    
     setAnchorEl(null);
   };
 
@@ -57,7 +58,14 @@ const Navbar = () => {
           <div>
             <IconButton onClick={handleClick}>
               <Avatar
-                sx={{ width: 30, height: 30 }}
+                sx={{
+                  width: 30,
+                  height: 30,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                }}
                 alt=""
                 src={activeUser.photoURL && activeUser.photoURL}
               >
@@ -87,7 +95,12 @@ const Navbar = () => {
                 </Typography>
               </Box>
               <Divider />
-              <MenuItem onClick={handleClose}>
+              <MenuItem
+                onClick={() => {
+                  authenticate("logout", "", "", dispatch, navigate);
+                  handleClose();
+                }}
+              >
                 <MdOutlineLogout
                   style={{ paddingLeft: "10px", fontSize: "25px" }}
                 />
