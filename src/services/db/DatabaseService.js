@@ -1,21 +1,35 @@
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { db } from "../../config";
 
 class DatabaseService {
-  collection;
+  collectionRef;
 
   constructor(collectionName) {
-    this.collection = db.collection(collectionName);
+    this.collectionRef = collection(db, collectionName);
   }
 
   // returns list of records as an array of javascript objects
-  getAll = async () => {
-    const snapshot = await this.collection.get();
-    return snapshot.docs.map((doc) => {
-      return {
-        id: doc.id, // append document id to each document
-        ...doc.data(),
-      };
-    });
+  getAll = async (key, queryParam) => {
+    const result = [];
+
+    const q = query(this.collectionRef, where(key, "==", queryParam));
+
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.docs.length > 0) {
+      querySnapshot.forEach((doc) => {
+        result.push(doc);
+      });
+    }
+
+    return result;
   };
 
   // returns a single document in object format
@@ -28,30 +42,36 @@ class DatabaseService {
 
   // resolve a relation, returns the referenced document
   getReference = async (documentReference) => {
-    const res = await documentReference.get();
-    const data = res.data();
-
-    if (data && documentReference.id) {
-      data.uid = documentReference.id;
-    }
-
-    return data;
+    // const res = await documentReference.get();
+    // const data = res.data();
+    // if (data && documentReference.id) {
+    //   data.uid = documentReference.id;
+    // }
+    // return data;
   };
 
   // save a new document in the database
   create = async (data) => {
-    console.log("1");
-    return await this.collection.add(data);
+    try {
+      const newDoc = doc(this.collectionRef);
+
+      await setDoc(newDoc, {
+        uid: newDoc.id,
+        ...data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // update an existing document with new data
   update = async (id, values) => {
-    return await this.collection.doc(id).update(values);
+    // return await this.collection.doc(id).update(values);
   };
 
   // delete an existing document from the collection
   remove = async (id) => {
-    return await this.collection.doc(id).delete();
+    // return await this.collection.doc(id).delete();
   };
 }
 
