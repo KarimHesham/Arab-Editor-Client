@@ -67,9 +67,9 @@ const Navbar = () => {
                   textAlign: "center",
                 }}
                 alt=""
-                src={activeUser.photoURL && activeUser.photoURL}
+                // src={activeUser.photoURL && activeUser.photoURL}
               >
-                {!activeUser.photoURL && activeUser.username[0].toUpperCase()}
+                {/* {!activeUser.photoURL && activeUser.username[0].toUpperCase()} */}
               </Avatar>
             </IconButton>
             <Menu
