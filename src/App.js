@@ -37,8 +37,6 @@ function App() {
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
-  useEffect(() => {}, []);
-
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
