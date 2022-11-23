@@ -36,7 +36,6 @@ class DatabaseService {
 
   // returns a single document in object format
   getOne = async (id) => {
-    console.log(id);
     const docRef = doc(db, this.collectionName, id);
 
     const docSnapshot = await getDoc(docRef);
