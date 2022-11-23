@@ -56,7 +56,7 @@ class DatabaseService {
       const newDoc = doc(this.collectionRef);
 
       await setDoc(newDoc, {
-        uid: newDoc.id,
+        id: newDoc.id,
         ...data,
       });
     } catch (err) {

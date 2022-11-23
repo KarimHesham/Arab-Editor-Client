@@ -11,7 +11,12 @@ import { auth } from "../../config";
 const googleProvider = new GoogleAuthProvider();
 
 class AuthenticationService {
-  User;
+  User = {
+    uid: null,
+    email: null,
+    username: null,
+    photoURL: null,
+  };
 
   // Actions available in auth service
   Action = {
@@ -19,6 +24,14 @@ class AuthenticationService {
     Register: "register",
     Reset: "reset",
     SignOut: "logout",
+  };
+
+  // Helper method
+  setUser = (user) => {
+    this.User.uid = user.uid;
+    this.User.email = user.email;
+    this.User.username = user.email.split("@")[0];
+    this.User.photoURL = user.photoURL;
   };
 
   // Wrapper method for accessing auth services
@@ -48,7 +61,7 @@ class AuthenticationService {
   googleSignIn = async () => {
     const res = await signInWithPopup(auth, googleProvider);
 
-    this.User = res.user;
+    this.setUser(res.user);
     return res;
   };
 
@@ -59,7 +72,7 @@ class AuthenticationService {
       payload.password
     );
 
-    this.User = res.user;
+    this.setUser(res.user);
     return res;
   };
 
@@ -70,7 +83,7 @@ class AuthenticationService {
       payload.password
     );
 
-    this.User = res.user;
+    this.setUser(res.user);
     return res;
   };
 

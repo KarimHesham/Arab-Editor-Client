@@ -6,19 +6,14 @@ export const authenticate = (action, provider, payload, dispatch, navigate) => {
   AuthService.authenticate(action, provider, payload)
     .then(() => {
       if (action === "login" || action === "register") {
+        const user = AuthService.User;
         dispatch(
           setUser({
-            uid: AuthService.User.uid,
-            email: AuthService.User.email,
-            username: AuthService.User.email.split("@")[0],
-            photoURL: AuthService.User.photoURL,
+            user,
           })
         );
-
         UsersService.create({
-          authId: AuthService.User.uid,
-          email: AuthService.User.email,
-          username: AuthService.User.email.split("@")[0],
+          ...user,
           pages: [],
         });
         navigate("/home");
