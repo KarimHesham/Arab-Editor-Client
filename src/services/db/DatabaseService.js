@@ -1,6 +1,7 @@
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   setDoc,
@@ -10,9 +11,11 @@ import { db } from "../../config";
 
 class DatabaseService {
   collectionRef;
+  collectionName;
 
   constructor(collectionName) {
     this.collectionRef = collection(db, collectionName);
+    this.collectionName = collectionName;
   }
 
   // returns list of records as an array of javascript objects
@@ -25,19 +28,24 @@ class DatabaseService {
 
     if (querySnapshot.docs.length > 0) {
       querySnapshot.forEach((doc) => {
-        result.push(doc);
+        result.push(doc.data());
       });
     }
-
     return result;
   };
 
   // returns a single document in object format
-  getOne = async ({ queryKey }) => {
-    const { id } = queryKey[1];
-    if (!id) return; // entity form is in create mode
-    const snapshot = await this.collection.doc(id).get();
-    return snapshot.data();
+  getOne = async (id) => {
+    console.log(id);
+    const docRef = doc(db, this.collectionName, id);
+
+    const docSnapshot = await getDoc(docRef);
+
+    if (docSnapshot.exists()) {
+      return docSnapshot.data();
+    } else {
+      return false;
+    }
   };
 
   // resolve a relation, returns the referenced document
