@@ -1,4 +1,4 @@
 import { authenticate } from "./auth/auth";
-import { addPage, createUser, getUser } from "./db/db";
+import { createPage, createUser, getUser } from "./db/db";
 
-export { authenticate, createUser, getUser, addPage };
+export { authenticate, createUser, getUser, createPage };

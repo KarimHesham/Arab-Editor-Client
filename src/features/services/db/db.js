@@ -19,7 +19,7 @@ export const getUser = (uid) => {
   return UsersService.getAll("uid", uid);
 };
 
-export const addPage = (page) => {
+export const createPage = (page) => {
   const newPage = {
     ...page,
   };

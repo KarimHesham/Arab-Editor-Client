@@ -11,7 +11,7 @@ import {
 import { useFormik } from "formik";
 
 import { pageNameValidation } from "../../../utils/validation";
-import { addPage } from "../../services";
+import { createPage } from "../../services";
 import { useSelector } from "react-redux";
 
 const Modal = ({ open, handleClose, modalType }) => {
@@ -23,7 +23,7 @@ const Modal = ({ open, handleClose, modalType }) => {
       },
       validationSchema: pageNameValidation,
       onSubmit: (values, actions) => {
-        addPage({ name: values.name, username: activeUser.username });
+        createPage({ name: values.name, username: activeUser.username });
         actions.resetForm();
       },
     });
