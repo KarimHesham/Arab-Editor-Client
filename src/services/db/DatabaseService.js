@@ -1,10 +1,12 @@
 import {
+  arrayUnion,
   collection,
   doc,
   getDoc,
   getDocs,
   query,
   setDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { db } from "../../config";
@@ -59,21 +61,36 @@ class DatabaseService {
 
   // save a new document in the database
   create = async (data) => {
-    try {
-      const newDoc = doc(this.collectionRef);
+    const newDoc = doc(this.collectionRef);
 
-      await setDoc(newDoc, {
-        id: newDoc.id,
-        ...data,
-      });
-    } catch (err) {
+    await setDoc(newDoc, {
+      id: newDoc.id,
+      ...data,
+    }).catch((err) => {
       console.log(err);
-    }
+    });
+
+    return newDoc;
   };
 
   // update an existing document with new data
-  update = async (id, values) => {
-    // return await this.collection.doc(id).update(values);
+  update = async (key, queryParam, data) => {
+    const q = query(this.collectionRef, where(key, "==", queryParam));
+
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.docs.length > 0) {
+      const foundDoc = doc(db, this.collectionName, querySnapshot.docs[0].id);
+
+      updateDoc(
+        foundDoc,
+        this.collectionName === "pages"
+          ? {
+              ...data,
+            }
+          : { pages: arrayUnion({ id: data.id, name: data.name }) }
+      );
+    }
   };
 
   // delete an existing document from the collection

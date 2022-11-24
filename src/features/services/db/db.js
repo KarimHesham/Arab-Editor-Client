@@ -1,4 +1,7 @@
-import { UsersService } from "../../../services/db/DatabaseService";
+import {
+  PagesService,
+  UsersService,
+} from "../../../services/db/DatabaseService";
 
 export const createUser = (user) => {
   const newUser = {
@@ -14,4 +17,27 @@ export const createUser = (user) => {
 
 export const getUser = (uid) => {
   return UsersService.getAll("uid", uid);
+};
+
+export const addPage = (page) => {
+  const newPage = {
+    ...page,
+  };
+
+  PagesService.create({
+    ...newPage,
+  })
+    .then((res) => {
+      const pageData = {
+        id: res.id,
+        name: page.name,
+      };
+
+      UsersService.update("username", page.username, pageData).catch((err) => {
+        console.log(err);
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
