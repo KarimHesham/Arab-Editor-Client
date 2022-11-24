@@ -23,7 +23,7 @@ const handleClick = () => {
   console.info("You clicked the Chip.");
 };
 
-const PageCard = () => {
+const PageCard = ({ id, name }) => {
   const [open, setOpen] = useState(false);
 
   // modalType: addPage | deletePage | editPageName
@@ -53,7 +53,7 @@ const PageCard = () => {
               alignItems="center"
             >
               <Typography component="h3" variant="h3" fontWeight={500} noWrap>
-                عنوان الصفحة
+                {name}
               </Typography>
               <IconButton color="success" aria-label="run page">
                 <MdPlayArrow fontSize={40} />

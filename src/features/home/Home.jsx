@@ -3,8 +3,11 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import { IoAddOutline } from "react-icons/io5";
 
 import { Navbar, PageCard, Modal } from "./components";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const activeUser = useSelector((state) => state.user.user);
+
   const [open, setOpen] = useState(false);
 
   // modalType: addPage | deletePage | editPageName
@@ -50,7 +53,9 @@ const Home = () => {
             </Button>
           </Stack>
           <Grid container spacing={2}>
-            <PageCard />
+            {activeUser?.pages?.map((page) => {
+              return <PageCard key={page.id} id={page.id} name={page.name} />;
+            })}
           </Grid>
         </Box>
       </Stack>
