@@ -1,3 +1,4 @@
+import { setUser } from "../../../redux/reducers/userSlice";
 import {
   PagesService,
   UsersService,
@@ -19,7 +20,7 @@ export const getUser = (uid) => {
   return UsersService.getAll("uid", uid);
 };
 
-export const createPage = (page) => {
+export const createPage = (page, uid, dispatch) => {
   const newPage = {
     ...page,
   };
@@ -33,9 +34,15 @@ export const createPage = (page) => {
         name: page.name,
       };
 
-      UsersService.update("username", page.username, pageData).catch((err) => {
-        console.log(err);
-      });
+      UsersService.update("username", page.username, pageData)
+        .then(() => {
+          getUser(uid).then((res) => {
+            dispatch(setUser({ ...res[0] }));
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
     .catch((err) => {
       console.log(err);

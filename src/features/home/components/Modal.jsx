@@ -12,10 +12,12 @@ import { useFormik } from "formik";
 
 import { pageNameValidation } from "../../../utils/validation";
 import { createPage } from "../../services";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Modal = ({ open, handleClose, modalType }) => {
   const activeUser = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
@@ -23,7 +25,11 @@ const Modal = ({ open, handleClose, modalType }) => {
       },
       validationSchema: pageNameValidation,
       onSubmit: (values, actions) => {
-        createPage({ name: values.name, username: activeUser.username });
+        createPage(
+          { name: values.name, username: activeUser.username },
+          activeUser.uid,
+          dispatch
+        );
         actions.resetForm();
       },
     });
