@@ -13,8 +13,10 @@ import { setUser } from "./redux/reducers/userSlice";
 
 function App() {
   const [mode, setMode] = useState("light");
-  const darkMode = useSelector((state) => state.theme.darkMode);
   const [user] = useAuthState(auth);
+
+  const darkMode = useSelector((state) => state.theme.darkMode);
+
   const dispatch = useDispatch();
 
   useMemo(() => {
@@ -23,6 +25,9 @@ function App() {
     } else {
       setMode("light");
     }
+  }, [darkMode]);
+
+  useMemo(() => {
     if (user) {
       dispatch(
         setUser({
@@ -33,7 +38,7 @@ function App() {
         })
       );
     }
-  }, [darkMode, user, dispatch]);
+  }, [user, dispatch]);
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
