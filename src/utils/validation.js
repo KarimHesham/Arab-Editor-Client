@@ -10,7 +10,6 @@ export const loginRegisterValidation = yup.object().shape({
     .string()
     .min(8, "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل")
     .required("يرجى إدخال كلمة المرور"),
-  // confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'يجب ان تتطابق كلمات المرور')
 });
 
 export const forgetPasswordValidation = yup.object().shape({
