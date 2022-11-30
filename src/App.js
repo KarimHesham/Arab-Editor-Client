@@ -54,7 +54,7 @@ function App() {
                 element={user ? <Navigate to="/home" /> : <Register />}
               />
               <Route path="/home" element={<Home />} />
-              <Route path="/editor" element={<Editor />} />
+              <Route path="/editor/:pageId" element={<Editor />} />
             </Routes>
           </BrowserRouter>
         </CssBaseline>
