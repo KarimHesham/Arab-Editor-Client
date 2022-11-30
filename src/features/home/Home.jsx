@@ -14,7 +14,7 @@ const Home = () => {
   const [modalType, setModalType] = useState("");
 
   const openAddPageModal = () => {
-    setModalType("addPage");
+    setModalType("create");
     setOpen(true);
   };
 

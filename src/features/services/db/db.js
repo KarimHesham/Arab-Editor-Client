@@ -48,3 +48,19 @@ export const createPage = (page, uid, dispatch) => {
       console.log(err);
     });
 };
+
+export const deletePage = (id, name, user, dispatch) => {
+  PagesService.remove(id, name, user.username)
+    .then(() => {
+      getUser(user.uid)
+        .then((res) => {
+          dispatch(setUser({ ...res[0] }));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

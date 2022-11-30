@@ -1,6 +1,8 @@
 import {
+  arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -94,8 +96,34 @@ class DatabaseService {
   };
 
   // delete an existing document from the collection
-  remove = async (id) => {
-    // return await this.collection.doc(id).delete();
+  remove = async (id, name, username) => {
+    await deleteDoc(doc(db, this.collectionName, id))
+      .then(async () => {
+        const q = query(
+          UsersService.collectionRef,
+          where("username", "==", username)
+        );
+
+        const result = await getDocs(q);
+
+        if (result.docs.length > 0) {
+          const userDoc = doc(
+            db,
+            UsersService.collectionName,
+            result.docs[0].id
+          );
+
+          updateDoc(userDoc, {
+            pages: arrayRemove({
+              id: id,
+              name: name,
+            }),
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 }
 

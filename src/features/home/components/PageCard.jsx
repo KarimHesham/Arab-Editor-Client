@@ -11,17 +11,12 @@ import {
   Typography,
 } from "@mui/material";
 import { MdOutlineEdit, MdDeleteOutline, MdPlayArrow } from "react-icons/md";
-
 import Modal from "./Modal";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fdfffc",
   padding: theme.spacing(2),
 }));
-
-const handleClick = () => {
-  console.info("You clicked the Chip.");
-};
 
 const PageCard = ({ id, name }) => {
   const [open, setOpen] = useState(false);
@@ -30,11 +25,11 @@ const PageCard = ({ id, name }) => {
   const [modalType, setModalType] = useState("");
 
   const openEditPageNameModal = () => {
-    setModalType("editPageName");
+    setModalType("edit");
     setOpen(true);
   };
   const openDeletePageModal = () => {
-    setModalType("deletePage");
+    setModalType("delete");
     setOpen(true);
   };
 
@@ -65,14 +60,8 @@ const PageCard = ({ id, name }) => {
                 label="تصميم وجهة الصفحة"
                 variant="outlined"
                 color="primary"
-                onClick={handleClick}
               />
-              <Chip
-                label="كود لغة عرب"
-                variant="outlined"
-                color="secondary"
-                onClick={handleClick}
-              />
+              <Chip label="كود لغة عرب" variant="outlined" color="secondary" />
             </Stack>
             <Divider />
             <Stack
@@ -100,7 +89,12 @@ const PageCard = ({ id, name }) => {
           </Stack>
         </Item>
       </Grid>
-      <Modal open={open} handleClose={handleClose} modalType={modalType} />
+      <Modal
+        open={open}
+        handleClose={handleClose}
+        modalType={modalType}
+        pageInfo={{ id: id, name: name }}
+      />
     </>
   );
 };
