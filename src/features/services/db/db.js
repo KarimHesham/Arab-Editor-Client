@@ -49,6 +49,24 @@ export const createPage = (page, uid, dispatch) => {
     });
 };
 
+export const updatePage = (page, user, oldPage, dispatch) => {
+  PagesService.update("id", page.id, page, oldPage, "page")
+    .then(() => {
+      UsersService.update("uid", user.uid, page, oldPage, "user")
+        .then(() => {
+          getUser(user.uid).then((res) => {
+            dispatch(setUser({ ...res[0] }));
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 export const deletePage = (id, name, user, dispatch) => {
   PagesService.remove(id, name, user.username)
     .then(() => {

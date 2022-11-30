@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { pageNameValidation } from "../../../utils/validation";
-import { createPage, deletePage } from "../../services";
+import { createPage, deletePage, updatePage } from "../../services";
 import { useDispatch, useSelector } from "react-redux";
 
 const Modal = ({ open, handleClose, modalType, pageInfo }) => {
@@ -32,6 +32,14 @@ const Modal = ({ open, handleClose, modalType, pageInfo }) => {
             createPage(
               { name: values.name, username: activeUser.username },
               activeUser.uid,
+              dispatch
+            );
+            break;
+          case "edit":
+            updatePage(
+              { id: pageInfo.id, name: values.name },
+              activeUser,
+              pageInfo,
               dispatch
             );
             break;

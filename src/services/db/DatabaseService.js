@@ -51,16 +51,6 @@ class DatabaseService {
     }
   };
 
-  // resolve a relation, returns the referenced document
-  getReference = async (documentReference) => {
-    // const res = await documentReference.get();
-    // const data = res.data();
-    // if (data && documentReference.id) {
-    //   data.uid = documentReference.id;
-    // }
-    // return data;
-  };
-
   // save a new document in the database
   create = async (data) => {
     const newDoc = doc(this.collectionRef);
@@ -76,7 +66,7 @@ class DatabaseService {
   };
 
   // update an existing document with new data
-  update = async (key, queryParam, data) => {
+  update = async (key, queryParam, data, oldData, action) => {
     const q = query(this.collectionRef, where(key, "==", queryParam));
 
     const querySnapshot = await getDocs(q);
@@ -84,14 +74,23 @@ class DatabaseService {
     if (querySnapshot.docs.length > 0) {
       const foundDoc = doc(db, this.collectionName, querySnapshot.docs[0].id);
 
-      updateDoc(
-        foundDoc,
-        this.collectionName === "pages"
-          ? {
-              ...data,
-            }
-          : { pages: arrayUnion({ id: data.id, name: data.name }) }
-      );
+      if (action === "user") {
+        updateDoc(foundDoc, {
+          pages: arrayRemove({ id: oldData.id, name: oldData.name }),
+        });
+        updateDoc(foundDoc, {
+          pages: arrayUnion({ id: data.id, name: data.name }),
+        });
+      } else {
+        updateDoc(
+          foundDoc,
+          this.collectionName === "pages"
+            ? {
+                ...data,
+              }
+            : { pages: arrayUnion({ id: data.id, name: data.name }) }
+        );
+      }
     }
   };
 
