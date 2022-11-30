@@ -75,12 +75,22 @@ class DatabaseService {
       const foundDoc = doc(db, this.collectionName, querySnapshot.docs[0].id);
 
       if (action === "user") {
-        updateDoc(foundDoc, {
-          pages: arrayRemove({ id: oldData.id, name: oldData.name }),
-        });
-        updateDoc(foundDoc, {
-          pages: arrayUnion({ id: data.id, name: data.name }),
-        });
+        const docRef = doc(db, this.collectionName, foundDoc.id);
+
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const user = docSnap.data();
+          user.pages = user.pages.map((page) => {
+            if (page.id === oldData.id) {
+              return { ...page, name: data.name };
+            }
+            return page;
+          });
+
+          updateDoc(foundDoc, {
+            ...user,
+          });
+        }
       } else {
         updateDoc(
           foundDoc,
