@@ -69,7 +69,7 @@ const PageCard = ({ id, name }) => {
                 variant="outlined"
                 color="secondary"
                 clickable={true}
-                onClick={() => navigate("/editor")}
+                onClick={() => navigate(`/editor/${id}`)}
               />
             </Stack>
             <Divider />
