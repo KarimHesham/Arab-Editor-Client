@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import { IoAddOutline } from "react-icons/io5";
-
-import { Navbar, PageCard, Modal } from "./components";
+import { Navbar } from "../../components";
+import { PageCard, Modal } from "./components";
 import { useSelector } from "react-redux";
 
 const Home = () => {
