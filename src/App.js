@@ -4,17 +4,15 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { CacheProvider } from "@emotion/react";
 import { useSelector } from "react-redux";
-import { useAuthState } from "react-firebase-hooks/auth";
 
 import { cacheRtl, getDesignTokens } from "./theme";
 import { Editor, Home, Landing, Register } from "./features";
-import { auth } from "./config";
 
 function App() {
   const [mode, setMode] = useState("light");
-  const [user] = useAuthState(auth);
 
   const darkMode = useSelector((state) => state.theme.darkMode);
+  const activeUser = useSelector((state) => state.user.user);
 
   useMemo(() => {
     if (darkMode) {
@@ -35,7 +33,7 @@ function App() {
               <Route path="/" exact element={<Landing />} />
               <Route
                 path="/register"
-                element={user ? <Navigate to="/home" /> : <Register />}
+                element={activeUser ? <Navigate to="/home" /> : <Register />}
               />
               <Route path="/home" element={<Home />} />
               <Route path="/editor/:pageId" element={<Editor />} />
