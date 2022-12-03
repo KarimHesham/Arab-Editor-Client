@@ -36,11 +36,6 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
-  // useMemo(() => {
-  //   if (user) {
-  //   }
-  // }, []);
-
   return (
     <AppBar
       position="sticky"
