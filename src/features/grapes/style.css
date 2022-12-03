@@ -1,0 +1,167 @@
+#editor {
+  border: 3px solid #444;
+}
+
+#blocks {
+  height: 100%;
+}
+
+.gjs-cv-canvas {
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gjs-pn-panel {
+  position: relative;
+}
+
+/* to center the icons of panel's buttons */
+.gjs-pn-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+}
+
+/* to fix the overflow in the panel buttons */
+.gjs-pn-options {
+  right: 0;
+  top: 0;
+}
+
+/* view code modal header */
+.gjs-mdl-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gjs-mdl-title {
+  font-size: 1.2rem;
+}
+
+.gjs-mdl-btn-close {
+  position: unset;
+}
+
+/* add icon in css properties */
+.gjs-sm-stack #gjs-sm-add {
+  right: auto;
+  left: 20px;
+  top: -23px;
+}
+
+/* css groups icons arrow */
+.gjs-sm-sector-caret {
+  transform: rotate(180deg);
+}
+
+.gjs-field-integer input {
+  padding-right: 38px;
+}
+
+.gjs-field .gjs-select {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+select {
+  text-align: left;
+  font-family: "Tajawal", sans-serif;
+}
+
+.gjs-cm-editor#gjs-cm-css #gjs-cm-title,
+.gjs-cm-editor#gjs-cm-htmlmixed #gjs-cm-title {
+  color: #42a5f5;
+  text-align: left;
+}
+
+.gjs-mdl-dialog {
+  font-family: "Tajawal", sans-serif;
+}
+
+.gjs-mdl-header {
+  padding-top: 10px;
+}
+
+.gjs-sm-sector-label {
+  margin-left: 0;
+  margin-right: 5px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.gjs-category-title,
+.gjs-block-category .gjs-title,
+.gjs-sm-sector-title {
+  text-align: right;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.gjs-layer-title,
+.gjs-layer-count {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.gjs-no-app {
+  height: auto;
+}
+
+.fa-caret-right:before {
+  content: "\f0da";
+  margin-left: 5px;
+}
+
+.fa-caret-down:before {
+  content: "\f0d7";
+  margin-left: 5px;
+}
+
+/* css properties */
+.gjs-sm-properties {
+  font-size: 16px;
+  text-align: right;
+  font-weight: 400;
+}
+
+/* will be edited when we edit the names !!!!!!!!!!!!!!!!!! */
+.gjs-block-label {
+  direction: ltr;
+  font-size: 13px;
+}
+
+.gjs-sm-label {
+  justify-content: space-between;
+}
+
+.gjs-trt-trait .gjs-label {
+  text-align: right;
+}
+
+.gjs-trt-trait {
+  font-size: 17px;
+  padding: 10px 5px;
+}
+
+.gjs-clm-sels-info,
+.gjs-clm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+
+.gjs-clm-label-sel {
+  float: none;
+  padding: 0;
+  text-align: right;
+}
+
+#gjs-clm-status-c {
+  margin: 0;
+}
