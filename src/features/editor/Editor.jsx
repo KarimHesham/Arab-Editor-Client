@@ -17,10 +17,10 @@ const Editor = () => {
   return (
     <Stack>
       <Navbar />
-      <Box component="div" sx={{ width: "100%", display: "flex" }}>
+      <Stack direction="row">
         {toggleSideBar ? (
-          <Box sx={{ background: "primary" }}>
-            <Stack height="50vh" width="200px"></Stack>
+          <Box>
+            <Stack height="100px" width="200px"></Stack>
           </Box>
         ) : null}
 
@@ -41,7 +41,7 @@ const Editor = () => {
             onChange={onChange}
           />
         </Box>
-      </Box>
+      </Stack>
     </Stack>
   );
 };
