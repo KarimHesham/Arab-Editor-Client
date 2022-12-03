@@ -10,7 +10,7 @@ const Home = () => {
 
   const [open, setOpen] = useState(false);
 
-  // modalType: addPage | deletePage | editPageName
+  // modalType: add | delete | edit
   const [modalType, setModalType] = useState("");
 
   const openAddPageModal = () => {
