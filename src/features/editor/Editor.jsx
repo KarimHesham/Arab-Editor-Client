@@ -30,9 +30,13 @@ const Editor = () => {
     console.log("userCode:", value);
   }, []);
 
-  const openPage = (page) => {
+  const openEditor = (page) => {
     dispatch(setActivePage(page));
     navigate(`/editor/${page.id}`);
+  };
+
+  const openGrapes = () => {
+    navigate(`/grapes/${activePage.id}`);
   };
 
   return (
@@ -42,41 +46,55 @@ const Editor = () => {
         direction="row"
         alignItems="center"
         justifyContent="space-between"
-        px={3}
+        px={2}
       >
-        <IconButton
-          onClick={() =>
-            toggleSideBar ? setToggleSideBar(false) : setToggleSideBar(true)
-          }
-        >
-          <IoMenuOutline style={{ width: "30px", height: "30px" }} />
-        </IconButton>
+        <Stack direction="row" spacing={4} alignItems="center">
+          <IconButton
+            onClick={() =>
+              toggleSideBar ? setToggleSideBar(false) : setToggleSideBar(true)
+            }
+          >
+            <IoMenuOutline style={{ width: "30px", height: "30px" }} />
+          </IconButton>
+          <Button onClick={openGrapes} size="large" variant="contained">
+            تصميم وجهة الصفحة
+          </Button>
+        </Stack>
         <Stack
           spacing={2}
           direction="row"
           alignItems="center"
           justifyContent="center"
         >
-          <Typography component="p" variant="h3">
+          <Typography
+            sx={{ maxWidth: "250px" }}
+            component="p"
+            variant="h3"
+            noWrap
+          >
             {activePage.name}
           </Typography>
           <Button color="success" variant="contained">
-            <MdPlayArrow style={{ width: "40px", height: "40px" }} />
+            <MdPlayArrow style={{ width: "35px", height: "35px" }} />
           </Button>
         </Stack>
       </Stack>
       <Stack direction="row" sx={{ flexGrow: 1, height: "100%" }}>
         {toggleSideBar ? (
-          <Box width="240px">
-            {pages.map((page) => (
+          <Box width="240px" mx={1}>
+            {pages.map((page, index) => (
               <>
                 <Button
-                  sx={{ fontSize: "17px", textTransform: "initial" }}
+                  sx={{
+                    fontSize: "17px",
+                    textTransform: "initial",
+                    justifyContent: "left",
+                  }}
                   fullWidth
                   size="large"
-                  variant="text"
-                  key={page.id}
-                  onClick={() => openPage(page)}
+                  variant={page.id === activePage.id ? "outlined" : "text"}
+                  key={index}
+                  onClick={() => openEditor(page)}
                 >
                   <Typography component="p" noWrap>
                     {page.name}

@@ -12,18 +12,6 @@ const panels = {
           context: "sw-visibility",
         },
         {
-          id: "preview",
-          className: "fa fa-eye",
-          command: "preview",
-          context: "preview",
-        },
-        {
-          id: "fullscreen",
-          className: "fa fa-arrows-alt",
-          command: "fullscreen",
-          context: "fullscreen",
-        },
-        {
           id: "redo",
           className: "fa fa-repeat",
           command: "redo",
