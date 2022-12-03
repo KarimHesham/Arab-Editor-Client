@@ -37,7 +37,7 @@ function App() {
               />
               <Route path="/home" element={<Home />} />
               <Route path="/editor/:pageId" element={<Editor />} />
-              <Route path="/grapes" element={<Grapes />} />
+              <Route path="/grapes/:pageId" element={<Grapes />} />
             </Routes>
           </BrowserRouter>
         </CssBaseline>

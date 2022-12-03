@@ -13,6 +13,8 @@ import {
 import { MdOutlineEdit, MdDeleteOutline, MdPlayArrow } from "react-icons/md";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setActivePage } from "../../../redux/reducers/pagesSlice";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fdfffc",
@@ -21,6 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const PageCard = ({ id, name }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
   // modalType: addPage | deletePage | editPageName
@@ -37,6 +40,16 @@ const PageCard = ({ id, name }) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const openEditor = () => {
+    dispatch(setActivePage({ id, name }));
+    navigate(`/editor/${id}`);
+  };
+
+  const openGrapes = () => {
+    dispatch(setActivePage({ id, name }));
+    navigate(`/grapes/${id}`);
   };
 
   return (
@@ -63,13 +76,14 @@ const PageCard = ({ id, name }) => {
                 variant="outlined"
                 color="primary"
                 clickable={true}
+                onClick={openGrapes}
               />
               <Chip
                 label="كود لغة عرب"
                 variant="outlined"
                 color="secondary"
                 clickable={true}
-                onClick={() => navigate(`/editor/${id}`)}
+                onClick={openEditor}
               />
             </Stack>
             <Divider />
