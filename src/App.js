@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { cacheRtl, getDesignTokens } from "./theme";
-import { Home, Landing, Register } from "./features";
+import { Grapes, Home, Landing, Register } from "./features";
 import { auth } from "./config";
 import { setUser } from "./redux/reducers/userSlice";
 
@@ -49,6 +49,7 @@ function App() {
                 element={user ? <Navigate to="/home" /> : <Register />}
               />
               <Route path="/home" element={<Home />} />
+              <Route path="/grapes" element={<Grapes />} />
             </Routes>
           </BrowserRouter>
         </CssBaseline>
