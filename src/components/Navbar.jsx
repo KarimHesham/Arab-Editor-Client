@@ -75,7 +75,7 @@ const Navbar = () => {
                     justifyContent: "center",
                     textAlign: "center",
                   }}
-                  alt=""
+                  alt={activeUser?.username[0].toUpperCase()}
                   src={activeUser?.photoURL && activeUser?.photoURL}
                 ></Avatar>
               </IconButton>

@@ -25,6 +25,7 @@ export const authenticate = (action, provider, payload, dispatch, navigate) => {
 
       if (action === "logout") {
         navigate("/");
+        dispatch(setUser(null));
       }
     })
     .catch((err) => {
