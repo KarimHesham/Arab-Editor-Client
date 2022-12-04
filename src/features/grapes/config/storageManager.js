@@ -1,7 +1,7 @@
 // const projectID = 1;
 // const projectEndpoint = process.env.FIREBASE_DATABASE_URL;
-import { PagesService } from "../../../services/index";
 import FireStoreParser from "firestore-parser";
+import { updatePage } from "../../services/db/db";
 
 export const storageManager = (pageId) => {
   return {
@@ -29,7 +29,7 @@ export const storageManager = (pageId) => {
         // project data from the response result.
 
         onStore: (data) => {
-          PagesService.update("id", pageId, { content: data }, "", "pages")
+          updatePage("id", pageId, { content: data }, "", "pages")
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
         },
