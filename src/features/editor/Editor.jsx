@@ -46,7 +46,7 @@ const Editor = () => {
         direction="row"
         alignItems="center"
         justifyContent="space-between"
-        px={2}
+        px={3}
       >
         <Stack direction="row" spacing={4} alignItems="center">
           <IconButton
@@ -56,24 +56,19 @@ const Editor = () => {
           >
             <IoMenuOutline style={{ width: "30px", height: "30px" }} />
           </IconButton>
-          <Button onClick={openGrapes} size="large" variant="contained">
-            تصميم وجهة الصفحة
-          </Button>
-        </Stack>
-        <Stack
-          spacing={2}
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-        >
           <Typography
-            sx={{ maxWidth: "250px" }}
+            sx={{ maxWidth: "200px" }}
             component="p"
-            variant="h3"
+            variant="h4"
             noWrap
           >
             {activePage.name}
           </Typography>
+        </Stack>
+        <Stack spacing={2} direction="row" justifyContent="center">
+          <Button onClick={openGrapes} size="large" variant="contained">
+            تصميم وجهة الصفحة
+          </Button>
           <Button color="success" variant="contained">
             <MdPlayArrow style={{ width: "35px", height: "35px" }} />
           </Button>
@@ -83,7 +78,7 @@ const Editor = () => {
         {toggleSideBar ? (
           <Box width="240px" mx={1}>
             {pages.map((page, index) => (
-              <>
+              <div key={index}>
                 <Button
                   sx={{
                     fontSize: "17px",
@@ -93,7 +88,6 @@ const Editor = () => {
                   fullWidth
                   size="large"
                   variant={page.id === activePage.id ? "outlined" : "text"}
-                  key={index}
                   onClick={() => openEditor(page)}
                 >
                   <Typography component="p" noWrap>
@@ -101,7 +95,7 @@ const Editor = () => {
                   </Typography>
                 </Button>
                 <Divider />
-              </>
+              </div>
             ))}
           </Box>
         ) : null}
