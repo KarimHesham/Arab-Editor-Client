@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Box,
   Button,
@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Navbar } from "../../components";
 import { setActivePage } from "../../redux/reducers/pagesSlice";
-import { updatePage } from "../services";
+import { getPage, updatePage } from "../services";
 
 const Editor = () => {
   const activePage = useSelector((state) => state.pages.activePage);
@@ -29,7 +29,7 @@ const Editor = () => {
   const theme = useSelector((state) => state.theme.darkMode);
   const pages = useSelector((state) => state.user.user.pages);
 
-  const onChange = React.useCallback((value, viewUpdate) => {
+  const onChange = useCallback((value, viewUpdate) => {
     console.log("userCode:", value);
     setCodeInput(value);
   }, []);
@@ -42,6 +42,19 @@ const Editor = () => {
   const openGrapes = () => {
     navigate(`/grapes/${activePage.id}`);
   };
+
+  useMemo(() => {
+    console.log(activePage);
+    getPage(activePage.id)
+      .then((res) => {
+        console.log(res[0]);
+        dispatch(setActivePage({ ...res[0] }));
+        setCodeInput(activePage.code);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <Stack spacing={2} sx={{ minHeight: "100vh" }}>
@@ -66,7 +79,7 @@ const Editor = () => {
             variant="h4"
             noWrap
           >
-            {activePage.name}
+            {activePage?.name}
           </Typography>
         </Stack>
         <Stack spacing={2} direction="row" justifyContent="center">
@@ -100,7 +113,7 @@ const Editor = () => {
                   }}
                   fullWidth
                   size="large"
-                  variant={page.id === activePage.id ? "outlined" : "text"}
+                  variant={page.id === activePage?.id ? "outlined" : "text"}
                   onClick={() => openEditor(page)}
                 >
                   <Typography component="p" noWrap>
@@ -114,7 +127,7 @@ const Editor = () => {
         ) : null}
         <CodeMirror
           style={{ flexGrow: 1 }}
-          value="console.log('hello world!');"
+          value={activePage?.code ? activePage?.code : "console.log('hello');"}
           theme={theme ? "dark" : "light"}
           height="100%"
           width="100%"

@@ -49,6 +49,10 @@ export const createPage = (page, uid, dispatch) => {
     });
 };
 
+export const getPage = (id) => {
+  return PagesService.getAll("id", id);
+};
+
 export const updatePage = (page, user, oldPage, dispatch) => {
   PagesService.update("id", page.id, page, oldPage, "page")
     .then(() => {

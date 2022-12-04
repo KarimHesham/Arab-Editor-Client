@@ -4,6 +4,7 @@ import {
   createUser,
   deletePage,
   getUser,
+  getPage,
   updatePage,
 } from "./db/db";
 
@@ -11,6 +12,7 @@ export {
   authenticate,
   createUser,
   getUser,
+  getPage,
   createPage,
   updatePage,
   deletePage,
