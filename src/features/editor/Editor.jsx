@@ -17,9 +17,11 @@ import { useNavigate } from "react-router-dom";
 
 import { Navbar } from "../../components";
 import { setActivePage } from "../../redux/reducers/pagesSlice";
+import { updatePage } from "../services";
 
 const Editor = () => {
   const activePage = useSelector((state) => state.pages.activePage);
+  const [codeInput, setCodeInput] = useState();
   const [toggleSideBar, setToggleSideBar] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,6 +31,7 @@ const Editor = () => {
 
   const onChange = React.useCallback((value, viewUpdate) => {
     console.log("userCode:", value);
+    setCodeInput(value);
   }, []);
 
   const openEditor = (page) => {
@@ -70,7 +73,13 @@ const Editor = () => {
           <Button onClick={openGrapes} size="large" variant="outlined">
             تصميم وجهة الصفحة
           </Button>
-          <Button color="success" variant="outlined">
+          <Button
+            color="success"
+            variant="outlined"
+            onClick={() =>
+              updatePage({ ...activePage, code: codeInput }, "", "", dispatch)
+            }
+          >
             <BiSave style={{ width: "30px", height: "30px" }} />
           </Button>
           <Button color="success" variant="contained">
