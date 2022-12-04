@@ -8,7 +8,7 @@ import { Box } from "@mui/material";
 
 import { Body, Sidebar } from "./components";
 import { panels, i18n, deviceManager, styleManager } from "./config";
-import "./style.css";
+import "./styles/style.css";
 import { useSelector } from "react-redux";
 import { storageManager } from "./config/storageManager";
 
