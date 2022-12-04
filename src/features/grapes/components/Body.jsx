@@ -1,6 +1,6 @@
 import { Box, Stack } from "@mui/material";
-import { BsFileEarmarkCode } from "react-icons/bs";
-import { MdPlayArrow } from "react-icons/md";
+import { BiSave, BiCodeBlock } from "react-icons/bi";
+import { IoMdPlay } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -24,15 +24,18 @@ const Body = () => {
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Box id="panel__basic-actions"></Box>
         <Stack direction="row">
+          <div className="gjs-pn-btn gjs-two-color" title="حفظ">
+            <BiSave />
+          </div>
           <div
             className="gjs-pn-btn gjs-two-color"
             title="كود لغة عرب"
             onClick={openEditor}
           >
-            <BsFileEarmarkCode />
+            <BiCodeBlock />
           </div>
           <div className="gjs-pn-btn gjs-two-color" title="تجربة الموقع">
-            <MdPlayArrow />
+            <IoMdPlay />
           </div>
         </Stack>
         <Box id="panel__devices"></Box>

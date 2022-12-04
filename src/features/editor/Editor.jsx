@@ -12,6 +12,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { IoMenuOutline } from "react-icons/io5";
 import { MdPlayArrow } from "react-icons/md";
+import { BiSave } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 import { Navbar } from "../../components";
@@ -66,8 +67,11 @@ const Editor = () => {
           </Typography>
         </Stack>
         <Stack spacing={2} direction="row" justifyContent="center">
-          <Button onClick={openGrapes} size="large" variant="contained">
+          <Button onClick={openGrapes} size="large" variant="outlined">
             تصميم وجهة الصفحة
+          </Button>
+          <Button color="success" variant="outlined">
+            <BiSave style={{ width: "30px", height: "30px" }} />
           </Button>
           <Button color="success" variant="contained">
             <MdPlayArrow style={{ width: "35px", height: "35px" }} />
