@@ -19,15 +19,6 @@ export const storageManager = (pageId) => {
       remote: {
         urlLoad: `https://firestore.googleapis.com/v1/projects/arab-editor/databases/(default)/documents/pages/${pageId}?mask.fieldPaths=content`,
 
-        // urlLoad: `https://firestore.googleapis.com/v1/projects/arab-editor/databases/(default)/documents/pages/${pageId}/content`,
-        // The `remote` storage uses the POST method when stores data but
-        // the json-server API requires PATCH.
-        // fetchOptions: (opts) =>
-        //   opts.method === "POST" ? { method: "PATCH" } : {},
-        // As the API stores projects in this format `{id: 1, data: projectData }`,
-        // we have to properly update the body before the store and extract the
-        // project data from the response result.
-
         onStore: (data) => {
           updatePage("id", pageId, { content: data }, "", "pages")
             .then((res) => console.log(res))
