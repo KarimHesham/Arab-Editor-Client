@@ -30,7 +30,11 @@ function App() {
         <CssBaseline>
           <BrowserRouter>
             <Routes>
-              <Route path="/" exact element={<Landing />} />
+              <Route
+                path="/"
+                exact
+                element={activeUser ? <Navigate to="/home" /> : <Landing />}
+              />
               <Route
                 path="/register"
                 element={activeUser ? <Navigate to="/home" /> : <Register />}
