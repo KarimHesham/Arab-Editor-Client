@@ -1,5 +1,3 @@
-// const projectID = 1;
-// const projectEndpoint = process.env.FIREBASE_DATABASE_URL;
 import FireStoreParser from "firestore-parser";
 import { updatePage } from "../../services/db/db";
 
