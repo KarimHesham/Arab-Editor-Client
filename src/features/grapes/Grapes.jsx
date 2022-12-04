@@ -9,6 +9,8 @@ import { Box } from "@mui/material";
 import { Body, Sidebar } from "./components";
 import { panels, i18n, deviceManager, styleManager } from "./config";
 import "./style.css";
+import { useSelector } from "react-redux";
+import { storageManager } from "./config/storageManager";
 
 const MyBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#121212" : "#fdfffc",
@@ -42,11 +44,12 @@ const MyBox = styled(Box)(({ theme }) => ({
 
 const Grapes = () => {
   const [editor, setEditor] = useState(null);
+  const activePage = useSelector((state) => state.pages.activePage);
 
   useEffect(() => {
     const editor = grapesjs.init({
       container: "#editor",
-      storageManager: false,
+      storageManager: storageManager(activePage.id),
       plugins: [gjsBlocksBasic, gjsExport],
       pluginsOpts: {
         gjsBlocksBasic: {},
@@ -91,7 +94,7 @@ const Grapes = () => {
     });
 
     setEditor(editor);
-  }, []);
+  }, [activePage.pageId]);
 
   return (
     <MyBox>
