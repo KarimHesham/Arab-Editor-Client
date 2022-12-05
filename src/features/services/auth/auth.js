@@ -11,13 +11,11 @@ export const authenticate = (action, provider, payload, dispatch, navigate) => {
         getUser(user.uid).then((res) => {
           if (res.length === 0) {
             createUser(user);
+            dispatch(setUser({ ...user }));
           } else {
             var existingUser = { ...user, pages: res[0].pages };
+            dispatch(setUser({ ...existingUser }));
           }
-
-          dispatch(
-            setUser(action === "register" ? { ...user } : { ...existingUser })
-          );
         });
 
         navigate("/home");
