@@ -1,5 +1,5 @@
 import FireStoreParser from "firestore-parser";
-import { updatePage } from "../../services/db/db";
+import { PagesService } from "../../../services/db/DatabaseService";
 
 export const storageManager = (pageId) => {
   return {
@@ -18,11 +18,11 @@ export const storageManager = (pageId) => {
         urlLoad: `https://firestore.googleapis.com/v1/projects/arab-editor/databases/(default)/documents/pages/${pageId}?mask.fieldPaths=content`,
 
         onStore: (data) => {
-          updatePage("id", pageId, { content: data }, "", "pages")
+          PagesService.update("id", pageId, { content: data }, "", "pages")
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
         },
-        onLoad: (result) => FireStoreParser(result).fields.content,
+        onLoad: (result) => FireStoreParser(result).fieldsresult.fields,
       },
     },
   };
