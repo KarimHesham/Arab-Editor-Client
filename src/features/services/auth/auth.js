@@ -16,7 +16,7 @@ export const authenticate = (action, provider, payload, dispatch, navigate) => {
           }
 
           dispatch(
-            setUser(action === "login" ? { ...user } : { ...existingUser })
+            setUser(action === "register" ? { ...user } : { ...existingUser })
           );
         });
 
