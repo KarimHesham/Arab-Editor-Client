@@ -22,7 +22,7 @@ export const storageManager = (pageId) => {
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
         },
-        onLoad: (result) => FireStoreParser(result).fieldsresult.fields,
+        onLoad: (result) => FireStoreParser(result).fields.content,
       },
     },
   };
