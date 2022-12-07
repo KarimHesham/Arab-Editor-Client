@@ -1,10 +1,27 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
+import hardSet from "redux-persist/lib/stateReconciler/hardSet";
+import thunk from "redux-thunk";
+import { persistReducer, persistStore } from "redux-persist";
 import { pagesSlice, themeSlice, userSlice } from "./reducers";
 
-export const store = configureStore({
-  reducer: {
-    theme: themeSlice,
-    user: userSlice,
-    pages: pagesSlice,
-  },
+const persistConfig = {
+  key: "root",
+  storage,
+  stateReconciler: hardSet,
+};
+
+const rootReducer = combineReducers({
+  theme: themeSlice,
+  user: userSlice,
+  pages: pagesSlice,
 });
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: [thunk],
+});
+
+export const persistor = persistStore(store);
