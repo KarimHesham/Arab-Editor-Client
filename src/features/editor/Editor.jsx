@@ -53,7 +53,7 @@ const Editor = () => {
     getPage(activePage.id)
       .then((res) => {
         dispatch(setActivePage({ ...res[0] }));
-        setCodeInput(activePage.code);
+        setCodeInput(activePage.code.arab || "");
       })
       .catch((err) => {
         console.log(err);
@@ -94,7 +94,15 @@ const Editor = () => {
             color="success"
             variant="outlined"
             onClick={() =>
-              updatePage({ ...activePage, code: codeInput }, "", "", dispatch)
+              updatePage(
+                {
+                  ...activePage,
+                  code: { ...activePage.code, arab: codeInput },
+                },
+                "",
+                "",
+                dispatch
+              )
             }
           >
             <BiSave style={{ width: "30px", height: "30px" }} />
@@ -131,7 +139,7 @@ const Editor = () => {
         ) : null}
         <CodeMirror
           style={{ flexGrow: 1 }}
-          value={activePage?.code ? activePage?.code : "console.log('hello');"}
+          value={activePage?.code?.arab ? activePage?.code.arab : ""}
           theme={theme ? "dark" : "light"}
           height="100%"
           width="100%"
