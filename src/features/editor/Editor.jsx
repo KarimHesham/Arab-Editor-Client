@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   Box,
   Button,
@@ -35,8 +35,14 @@ const Editor = () => {
   }, []);
 
   const openEditor = (page) => {
-    dispatch(setActivePage(page));
-    navigate(`/editor/${page.id}`);
+    getPage(page.id)
+      .then((res) => {
+        dispatch(setActivePage({ ...res[0] }));
+        navigate(`/editor/${page.id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const openGrapes = () => {
@@ -44,10 +50,8 @@ const Editor = () => {
   };
 
   useMemo(() => {
-    console.log(activePage);
     getPage(activePage.id)
       .then((res) => {
-        console.log(res[0]);
         dispatch(setActivePage({ ...res[0] }));
         setCodeInput(activePage.code);
       })
