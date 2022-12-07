@@ -16,9 +16,9 @@ const Body = () => {
     <Box
       sx={{
         position: "relative",
-        width: "calc(100% - 350px)",
+        width: "calc(100% - 300px)",
         right: 0,
-        left: "350px",
+        left: "300px",
       }}
     >
       <Stack direction="row" justifyContent="space-between" alignItems="center">

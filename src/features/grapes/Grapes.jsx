@@ -13,31 +13,28 @@ import { useSelector } from "react-redux";
 import { storageManager } from "./config/storageManager";
 
 const MyBox = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#121212" : "#fdfffc",
   "& .gjs-one-bg": {
     backgroundColor: theme.palette.mode === "dark" ? "#121212" : "#fdfffc",
   },
-  "& .gjs-two-color": {
-    color: theme.palette.mode === "dark" ? "#42a5f5" : "#1976d2",
+  "& .gjs-two-color , input , & select.gjs-input-unit": {
+    color: theme.palette.mode === "dark" ? "#B8B8B8" : "rgba(0, 0, 0, 0.87)",
   },
-  "& .gjs-three-bg": {
-    backgroundColor: theme.palette.mode === "dark" ? "#42a5f5" : "#1976d2",
-    color: "#fdfffc",
-  },
-  "& .gjs-four-color": {
-    color: theme.palette.mode === "dark" ? "#1976d2" : "#1565c0",
+  "& .gjs-four-color , .gjs-four-color-h:hover , & .gjs-pn-btn": {
+    color: theme.palette.mode === "dark" ? "#42A5F5" : "#1565c0",
   },
   "& .gjs-four-color-h:hover": {
-    color: theme.palette.mode === "dark" ? "#1976d2" : "#1565c0",
+    color: theme.palette.mode === "dark" ? "#eee" : "#000",
   },
   "& .gjs-pn-active": {
-    color: "#7b1fa2",
+    color: theme.palette.mode === "dark" ? "#ba68c8" : "#7b1fa2",
   },
-  input: {
-    color:
-      theme.palette.mode === "dark" ? "#fff !important" : "#000 !important",
+  "& .gjs-color-warn": {
+    color: theme.palette.mode === "dark" ? "#ba68c8" : "#7b1fa2",
   },
-  "& #gjs-sm-add": {
+  "& .gjs-clm-sel-id": {
+    color: theme.palette.mode === "dark" ? "#fff" : "rgba(0, 0, 0, 0.87)",
+  },
+  "& #gjs-sm-add , #gjs-clm-new": {
     color: theme.palette.mode === "dark" ? "#fff" : "#000",
   },
 }));

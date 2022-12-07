@@ -53,7 +53,7 @@ const Sidebar = () => {
         position: "fixed",
         top: 0,
         left: 0,
-        width: "350px",
+        width: "300px",
         height: "100vh",
         overflowX: "hidden",
       }}
@@ -69,18 +69,22 @@ const Sidebar = () => {
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs value={value} onChange={handleChange}>
             <Tab
+              sx={{ minWidth: "78px" }}
               icon={<HiViewGridAdd style={{ width: "22px", height: "22px" }} />}
               {...a11yProps(0)}
             />
             <Tab
+              sx={{ minWidth: "78px" }}
               icon={<BsLayersFill style={{ width: "18px", height: "18px" }} />}
               {...a11yProps(1)}
             />
             <Tab
+              sx={{ minWidth: "78px" }}
               icon={<FaPaintBrush style={{ width: "18px", height: "18px" }} />}
               {...a11yProps(2)}
             />
             <Tab
+              sx={{ minWidth: "78px" }}
               icon={<BsGearFill style={{ width: "18px", height: "18px" }} />}
               {...a11yProps(3)}
             />

@@ -1,5 +1,5 @@
 #editor {
-  border: 3px solid #444;
+  border: 2px solid #444;
 }
 
 #blocks {
@@ -22,6 +22,7 @@
   align-items: center;
   justify-content: center;
   border: 1px solid;
+  border-radius: 5px;
 }
 
 /* to fix the overflow in the panel buttons */
@@ -33,6 +34,7 @@
 /* view code modal header */
 .gjs-mdl-header {
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
 }
@@ -57,10 +59,6 @@
   transform: rotate(180deg);
 }
 
-.gjs-field-integer input {
-  padding-right: 38px;
-}
-
 .gjs-field .gjs-select {
   display: flex;
   justify-content: space-between;
@@ -69,6 +67,13 @@
 
 select {
   text-align: left;
+}
+
+select,
+input,
+.gjs-mdl-dialog,
+.gjs-sm-property .gjs-sm-btn,
+.gjs-btn-prim {
   font-family: "Tajawal", sans-serif;
 }
 
@@ -76,10 +81,6 @@ select {
 .gjs-cm-editor#gjs-cm-htmlmixed #gjs-cm-title {
   color: #42a5f5;
   text-align: left;
-}
-
-.gjs-mdl-dialog {
-  font-family: "Tajawal", sans-serif;
 }
 
 .gjs-mdl-header {
@@ -128,6 +129,10 @@ select {
   font-weight: 400;
 }
 
+.gjs-radio-item-label {
+  font-size: 15px;
+}
+
 /* will be edited when we edit the names !!!!!!!!!!!!!!!!!! */
 .gjs-block-label {
   direction: ltr;
@@ -154,6 +159,7 @@ select {
   justify-content: space-between;
   font-size: 17px;
   margin-bottom: 20px;
+  padding: 0 1px;
 }
 
 .gjs-clm-label-sel {
@@ -164,4 +170,39 @@ select {
 
 #gjs-clm-status-c {
   margin: 0;
+}
+
+.gjs-block__media {
+  margin-bottom: 0;
+}
+
+.gjs-category-title,
+.gjs-layer-title,
+.gjs-block-category .gjs-title,
+.gjs-sm-sector-title {
+  background-color: transparent;
+}
+
+.gjs-sm-label {
+  margin: 6px 0 4px 0;
+}
+
+select.gjs-input-unit {
+  padding: 5px 1px;
+}
+
+.gjs-color-main,
+.gjs-sm-stack #gjs-sm-add,
+.gjs-off-prv {
+  color: unset;
+  fill: unset;
+}
+
+.gjs-layer-caret {
+  width: 20px;
+  height: 100%;
+}
+
+.gjs-field-color-picker {
+  border: 1px solid;
 }
