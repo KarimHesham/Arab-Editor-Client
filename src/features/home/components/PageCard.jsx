@@ -15,6 +15,7 @@ import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setActivePage } from "../../../redux/reducers/pagesSlice";
+import { getPage } from "../../services";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fdfffc",
@@ -43,8 +44,14 @@ const PageCard = ({ id, name }) => {
   };
 
   const openEditor = () => {
-    dispatch(setActivePage({ id, name }));
-    navigate(`/editor/${id}`);
+    getPage(id)
+      .then((res) => {
+        dispatch(setActivePage({ ...res[0] }));
+        navigate(`/editor/${id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const openGrapes = () => {
