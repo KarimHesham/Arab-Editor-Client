@@ -1,7 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import pagesSlice from "./reducers/pagesSlice";
-import themeSlice from "./reducers/themeSlice";
-import userSlice from "./reducers/userSlice";
+import { pagesSlice, themeSlice, userSlice } from "./reducers";
 
 export const store = configureStore({
   reducer: {
