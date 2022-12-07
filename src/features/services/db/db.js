@@ -23,6 +23,13 @@ export const getUser = (uid) => {
 export const createPage = (page, uid, dispatch) => {
   const newPage = {
     ...page,
+    username: null,
+    content: null,
+    code: {
+      arab: null,
+      html: null,
+      css: null,
+    },
   };
 
   PagesService.create({
