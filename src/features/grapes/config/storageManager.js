@@ -1,7 +1,7 @@
 import FireStoreParser from "firestore-parser";
 import { PagesService } from "../../../services/db/DatabaseService";
 
-export const storageManager = (pageId) => {
+export const storageManager = (page) => {
   return {
     type: "remote",
     stepsBeforeSave: 3,
@@ -15,7 +15,7 @@ export const storageManager = (pageId) => {
     },
     options: {
       remote: {
-        urlLoad: `https://firestore.googleapis.com/v1/projects/arab-editor/databases/(default)/documents/pages/${pageId}?mask.fieldPaths=content`,
+        urlLoad: `https://firestore.googleapis.com/v1/projects/arab-editor/databases/(default)/documents/pages/${page.id}?mask.fieldPaths=content`,
 
         onStore: (data, editor) => {
           const htmlCode = editor.getHtml();
@@ -24,7 +24,7 @@ export const storageManager = (pageId) => {
           console.log("Editor CSS: ", editor.getCss());
           PagesService.update(
             "id",
-            pageId,
+            page.id,
             { content: data, code: { html: htmlCode, css: cssCode } },
             "",
             "pages"
@@ -32,7 +32,17 @@ export const storageManager = (pageId) => {
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
         },
-        onLoad: (result) => FireStoreParser(result).fields.content,
+        onLoad: (result) =>
+          FireStoreParser(result)?.fields?.content || {
+            pages: [
+              {
+                component: `
+            <div class="test">${page.name}</div>
+            <style>.test { color: red; display:flex; align-item: center; justify-content: center }</style>
+          `,
+              },
+            ],
+          },
       },
     },
   };

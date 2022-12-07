@@ -46,7 +46,7 @@ const Grapes = () => {
   useEffect(() => {
     const editor = grapesjs.init({
       container: "#editor",
-      storageManager: storageManager(activePage.id),
+      storageManager: storageManager(activePage),
       plugins: [gjsBlocksBasic, gjsExport],
       pluginsOpts: {
         gjsBlocksBasic: {},
