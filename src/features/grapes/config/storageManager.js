@@ -29,7 +29,7 @@ export const storageManager = (page) => {
             "",
             "pages"
           )
-            .then((res) => console.log(res))
+            .then((res) => console.log("Content stored in db..."))
             .catch((err) => console.log(err));
         },
         onLoad: (result) =>
