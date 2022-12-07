@@ -55,8 +55,14 @@ const PageCard = ({ id, name }) => {
   };
 
   const openGrapes = () => {
-    dispatch(setActivePage({ id, name }));
-    navigate(`/grapes/${id}`);
+    getPage(id)
+      .then((res) => {
+        dispatch(setActivePage({ ...res[0] }));
+        navigate(`/grapes/${id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
