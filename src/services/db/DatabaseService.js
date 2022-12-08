@@ -7,6 +7,7 @@ import {
   getDoc,
   getDocs,
   query,
+  serverTimestamp,
   setDoc,
   updateDoc,
   where,
@@ -55,9 +56,13 @@ class DatabaseService {
   create = async (data) => {
     const newDoc = doc(this.collectionRef);
 
+    const newData =
+      this.collectionName === "users"
+        ? { id: newDoc.id, ...data }
+        : { id: newDoc.id, ...data, lastUpdated: serverTimestamp() };
+
     await setDoc(newDoc, {
-      id: newDoc.id,
-      ...data,
+      ...newData,
     }).catch((err) => {
       console.log(err);
     });
@@ -101,6 +106,7 @@ class DatabaseService {
           this.collectionName === "pages"
             ? {
                 ...data,
+                lastUpdated: serverTimestamp(),
               }
             : { pages: arrayUnion({ id: data.id, name: data.name }) }
         );
