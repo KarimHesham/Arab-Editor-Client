@@ -72,10 +72,14 @@ class DatabaseService {
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.docs.length > 0) {
-      const foundDoc = doc(db, this.collectionName, querySnapshot.docs[0].id);
+      const foundDoc = await doc(
+        db,
+        this.collectionName,
+        querySnapshot.docs[0].id
+      );
 
       if (action === "user") {
-        const docRef = doc(db, this.collectionName, foundDoc.id);
+        const docRef = await doc(db, this.collectionName, foundDoc.id);
 
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
@@ -87,12 +91,12 @@ class DatabaseService {
             return page;
           });
 
-          updateDoc(foundDoc, {
+          await updateDoc(foundDoc, {
             ...user,
           });
         }
       } else {
-        updateDoc(
+        await updateDoc(
           foundDoc,
           this.collectionName === "pages"
             ? {
@@ -122,7 +126,7 @@ class DatabaseService {
             result.docs[0].id
           );
 
-          updateDoc(userDoc, {
+          await updateDoc(userDoc, {
             pages: arrayRemove({
               id: id,
               name: name,

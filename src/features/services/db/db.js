@@ -35,21 +35,22 @@ export const createPage = (page, uid, dispatch) => {
   PagesService.create({
     ...newPage,
   })
-    .then((res) => {
+    .then(async (res) => {
       const pageData = {
         id: res.id,
         name: page.name,
       };
 
-      UsersService.update("username", page.username, pageData)
-        .then(() => {
-          getUser(uid).then((res) => {
+      UsersService.update("username", page.username, pageData).then(() => {
+        getUser(uid)
+          .then((res) => {
+            console.log(res[0]);
             dispatch(setUser({ ...res[0] }));
+          })
+          .catch((err) => {
+            console.log(err);
           });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -78,7 +79,7 @@ export const updatePage = (page, user, oldPage, dispatch) => {
     });
 };
 
-export const deletePage = (id, name, user, dispatch) => {
+export const deletePage = async (id, name, user, dispatch) => {
   PagesService.remove(id, name, user.username)
     .then(() => {
       getUser(user.uid)
