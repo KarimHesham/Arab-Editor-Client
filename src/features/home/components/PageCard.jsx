@@ -14,6 +14,7 @@ import { MdOutlineEdit, MdDeleteOutline, MdPlayArrow } from "react-icons/md";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import moment from "moment/min/moment-with-locales";
 import { setActivePage } from "../../../redux/reducers/pagesSlice";
 import { getPage } from "../../services";
 
@@ -22,7 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
 }));
 
-const PageCard = ({ id, name }) => {
+const PageCard = ({ id, name, lastUpdate }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -118,7 +119,7 @@ const PageCard = ({ id, name }) => {
                   اخر تحديث
                 </Typography>
                 <Typography component="p" variant="body2" fontWeight={600}>
-                  زمن
+                  {moment(lastUpdate).locale("ar").fromNow()}
                 </Typography>
               </Box>
             </Stack>

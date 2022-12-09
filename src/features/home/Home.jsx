@@ -54,7 +54,14 @@ const Home = () => {
           </Stack>
           <Grid container spacing={2}>
             {activeUser?.pages?.map((page) => {
-              return <PageCard key={page.id} id={page.id} name={page.name} />;
+              return (
+                <PageCard
+                  key={page.id}
+                  id={page.id}
+                  name={page.name}
+                  lastUpdate={page.lastUpdated}
+                />
+              );
             })}
           </Grid>
         </Box>
