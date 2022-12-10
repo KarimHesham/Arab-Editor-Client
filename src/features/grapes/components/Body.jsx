@@ -24,9 +24,6 @@ const Body = () => {
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Box id="panel__basic-actions"></Box>
         <Stack direction="row">
-          <div className="gjs-pn-btn gjs-two-color" title="حفظ">
-            <BiSave />
-          </div>
           <div
             className="gjs-pn-btn gjs-two-color"
             title="كود لغة عرب"
