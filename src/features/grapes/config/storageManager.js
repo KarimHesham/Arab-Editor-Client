@@ -4,7 +4,7 @@ import { PagesService } from "../../../services/db/DatabaseService";
 export const storageManager = (page) => {
   return {
     type: "remote",
-    stepsBeforeSave: 3,
+    stepsBeforeSave: 1,
     contentTypeJson: true,
     storeComponents: true,
     storeStyles: true,
