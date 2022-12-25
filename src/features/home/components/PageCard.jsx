@@ -130,7 +130,7 @@ const PageCard = ({ id, name, lastUpdate }) => {
         open={open}
         handleClose={handleClose}
         modalType={modalType}
-        pageInfo={{ id: id, name: name }}
+        pageInfo={{ id: id, name: name, lastUpdate: lastUpdate }}
       />
     </>
   );

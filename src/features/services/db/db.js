@@ -78,8 +78,8 @@ export const updatePage = (page, user, oldPage, dispatch) => {
     });
 };
 
-export const deletePage = async (id, name, user, dispatch) => {
-  PagesService.remove(id, name, user.username)
+export const deletePage = async (page, user, dispatch) => {
+  PagesService.remove(page, user.username)
     .then(() => {
       getUser(user.uid)
         .then((res) => {

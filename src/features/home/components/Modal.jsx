@@ -23,7 +23,7 @@ const Modal = ({ open, handleClose, modalType, pageInfo }) => {
         modalType === "delete"
           ? null
           : {
-              name: "",
+              name: pageInfo?.name,
             },
       validationSchema: modalType === "delete" ? null : pageNameValidation,
       onSubmit: (values, actions) => {
@@ -37,14 +37,14 @@ const Modal = ({ open, handleClose, modalType, pageInfo }) => {
             break;
           case "edit":
             updatePage(
-              { id: pageInfo.id, name: values.name },
+              { id: pageInfo?.id, name: values.name },
               activeUser,
               pageInfo,
               dispatch
             );
             break;
           case "delete":
-            deletePage(pageInfo.id, pageInfo.name, activeUser, dispatch);
+            deletePage(pageInfo, activeUser, dispatch);
             break;
           default:
             break;

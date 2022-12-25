@@ -120,8 +120,8 @@ class DatabaseService {
   };
 
   // delete an existing document from the collection
-  remove = async (id, name, username) => {
-    await deleteDoc(doc(db, this.collectionName, id))
+  remove = async (page, username) => {
+    await deleteDoc(doc(db, this.collectionName, page.id))
       .then(async () => {
         const q = query(
           UsersService.collectionRef,
@@ -139,9 +139,12 @@ class DatabaseService {
 
           await updateDoc(userDoc, {
             pages: arrayRemove({
-              id: id,
-              name: name,
+              id: page.id,
+              name: page.name,
+              lastUpdated: page.lastUpdate,
             }),
+          }).then(() => {
+            console.log("Page removed from user pages...");
           });
         }
       })
