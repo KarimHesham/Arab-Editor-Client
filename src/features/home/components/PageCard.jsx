@@ -14,7 +14,8 @@ import { MdOutlineEdit, MdDeleteOutline, MdPlayArrow } from "react-icons/md";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import moment from "moment/min/moment-with-locales";
+import moment from "moment";
+import "moment/locale/ar";
 import { setActivePage } from "../../../redux/reducers/pagesSlice";
 import { getPage } from "../../services";
 
@@ -27,6 +28,8 @@ const PageCard = ({ id, name, lastUpdate }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+
+  moment.locale("ar");
 
   // modalType: addPage | deletePage | editPageName
   const [modalType, setModalType] = useState("");
@@ -79,7 +82,11 @@ const PageCard = ({ id, name, lastUpdate }) => {
               <Typography component="h3" variant="h3" fontWeight={500} noWrap>
                 {name}
               </Typography>
-              <IconButton color="success" aria-label="run page">
+              <IconButton
+                color="success"
+                aria-label="run page"
+                onClick={() => window.open("/output", "_blank")}
+              >
                 <MdPlayArrow fontSize={40} />
               </IconButton>
             </Stack>
@@ -115,10 +122,10 @@ const PageCard = ({ id, name, lastUpdate }) => {
                 </IconButton>
               </Box>
               <Box>
-                <Typography component="p" variant="body2">
+                {/* <Typography component="p" variant="body2">
                   اخر تحديث
-                </Typography>
-                <Typography component="p" variant="body2" fontWeight={600}>
+                </Typography> */}
+                <Typography component="p" variant="body2">
                   {moment(lastUpdate).locale("ar").fromNow()}
                 </Typography>
               </Box>
