@@ -91,7 +91,7 @@ const Modal = ({ open, handleClose, modalType, pageInfo }) => {
               />
             )}
             <DialogActions sx={{ marginTop: "20px", padding: 0 }}>
-              <Button color="error" onClick={handleClose}>
+              <Button color="inherit" onClick={handleClose}>
                 إلغاء
               </Button>
               <Button
