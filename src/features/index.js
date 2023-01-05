@@ -3,3 +3,4 @@ export { default as Register } from "./register/Register";
 export { default as Home } from "./home/Home";
 export { default as Editor } from "./editor/Editor";
 export { default as Grapes } from "./grapes/Grapes";
+export { default as Output } from "./output/Output";
