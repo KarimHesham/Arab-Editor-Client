@@ -107,7 +107,11 @@ const Editor = () => {
           >
             <BiSave style={{ width: "30px", height: "30px" }} />
           </Button>
-          <Button color="success" variant="contained">
+          <Button
+            color="success"
+            variant="contained"
+            onClick={() => window.open("/output", "_blank")}
+          >
             <MdPlayArrow style={{ width: "35px", height: "35px" }} />
           </Button>
         </Stack>

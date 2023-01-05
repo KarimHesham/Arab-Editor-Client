@@ -31,7 +31,12 @@ const Body = () => {
           >
             <BiCodeBlock />
           </div>
-          <div className="gjs-pn-btn gjs-two-color" title="تجربة الموقع">
+          <div
+            onClick={() => window.open("/output", "_blank")}
+            style={{ color: "#2e7d32" }}
+            className="gjs-pn-btn gjs-two-color"
+            title="تجربة الموقع"
+          >
             <IoMdPlay />
           </div>
         </Stack>
