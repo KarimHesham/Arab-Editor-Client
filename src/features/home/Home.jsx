@@ -52,18 +52,50 @@ const Home = () => {
               إضافة صفحة
             </Button>
           </Stack>
-          <Grid container spacing={2}>
-            {activeUser?.pages?.map((page) => {
-              return (
-                <PageCard
-                  key={page.id}
-                  id={page.id}
-                  name={page.name}
-                  lastUpdate={page.lastUpdated}
-                />
-              );
-            })}
-          </Grid>
+
+          {activeUser.pages.length > 0 ? (
+            <Grid container spacing={2}>
+              {activeUser?.pages?.map((page) => {
+                return (
+                  <PageCard
+                    key={page.id}
+                    id={page.id}
+                    name={page.name}
+                    lastUpdate={page.lastUpdated}
+                  />
+                );
+              })}
+            </Grid>
+          ) : (
+            <Stack
+              width="100%%"
+              height="50vh"
+              direction="column"
+              alignItems="center"
+              justifyContent="center"
+              spacing={2}
+              sx={{ flexGrow: 1 }}
+            >
+              <Typography
+                align="center"
+                component="span"
+                variant="h4"
+                sx={{ color: "#777" }}
+                // fontWeight={500}
+              >
+                ابدأ بتصميم أول صفحه لك
+              </Typography>
+              <Button
+                onClick={openAddPageModal}
+                variant="outlined"
+                size="large"
+                startIcon={<IoAddOutline />}
+                sx={{ fontSize: { xs: 15, md: 17, xl: 19 } }}
+              >
+                إضافة صفحة
+              </Button>
+            </Stack>
+          )}
         </Box>
       </Stack>
       <Modal open={open} handleClose={handleClose} modalType={modalType} />
