@@ -42,18 +42,21 @@ const Home = () => {
             >
               الصفحات الخاصة بك
             </Typography>
-            <Button
-              onClick={openAddPageModal}
-              variant="contained"
-              size="large"
-              startIcon={<IoAddOutline />}
-              sx={{ fontSize: { xs: 15, md: 17, xl: 19 } }}
-            >
-              إضافة صفحة
-            </Button>
+
+            {activeUser?.pages?.length > 0 ? (
+              <Button
+                onClick={openAddPageModal}
+                variant="contained"
+                size="large"
+                startIcon={<IoAddOutline />}
+                sx={{ fontSize: { xs: 15, md: 17, xl: 19 } }}
+              >
+                إضافة صفحة
+              </Button>
+            ) : null}
           </Stack>
 
-          {activeUser.pages.length > 0 ? (
+          {activeUser?.pages?.length > 0 ? (
             <Grid container spacing={2}>
               {activeUser?.pages?.map((page) => {
                 return (
@@ -81,13 +84,12 @@ const Home = () => {
                 component="span"
                 variant="h4"
                 sx={{ color: "#777" }}
-                // fontWeight={500}
               >
                 ابدأ بتصميم أول صفحه لك
               </Typography>
               <Button
                 onClick={openAddPageModal}
-                variant="outlined"
+                variant="contained"
                 size="large"
                 startIcon={<IoAddOutline />}
                 sx={{ fontSize: { xs: 15, md: 17, xl: 19 } }}
