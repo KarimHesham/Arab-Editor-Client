@@ -1,3 +1,4 @@
+import { setActivePage, setPages } from "../../../redux/reducers/pagesSlice";
 import { setUser } from "../../../redux/reducers/userSlice";
 import { AuthService } from "../../../services/auth/AuthService";
 import { createUser, getUser } from "../db/db";
@@ -24,6 +25,8 @@ export const authenticate = (action, provider, payload, dispatch, navigate) => {
       if (action === "logout") {
         navigate("/");
         dispatch(setUser(null));
+        dispatch(setActivePage(null));
+        dispatch(setPages(null));
       }
     })
     .catch((err) => {
