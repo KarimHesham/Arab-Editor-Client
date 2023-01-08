@@ -100,11 +100,11 @@ const PageCard = ({ id, name, lastUpdate }) => {
                 onClick={openGrapes}
                 sx={{ fontWeight: "bold" }}
               >
-                تصميم وجهة الصفحة
+                تصميم واجهة الصفحة
               </Button>
               <Button
                 variant="outlined"
-                color="success"
+                color="secondary"
                 size="medium"
                 clickable={true}
                 onClick={openEditor}
