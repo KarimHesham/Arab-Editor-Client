@@ -39,10 +39,22 @@ function App() {
                 path="/register"
                 element={activeUser ? <Navigate to="/home" /> : <Register />}
               />
-              <Route path="/home" element={<Home />} />
-              <Route path="/editor/:pageId" element={<Editor />} />
-              <Route path="/grapes/:pageId" element={<Grapes />} />
-              <Route path="/output" element={<Output />} />
+              <Route
+                path="/home"
+                element={activeUser ? <Home /> : <Navigate to="/register" />}
+              />
+              <Route
+                path="/editor/:pageId"
+                element={activeUser ? <Editor /> : <Navigate to="/register" />}
+              />
+              <Route
+                path="/grapes/:pageId"
+                element={activeUser ? <Grapes /> : <Navigate to="/register" />}
+              />
+              <Route
+                path="/output"
+                element={activeUser ? <Output /> : <Navigate to="/register" />}
+              />
             </Routes>
           </BrowserRouter>
         </CssBaseline>
