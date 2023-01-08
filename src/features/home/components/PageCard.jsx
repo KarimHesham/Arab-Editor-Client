@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Box,
+  Button,
   Chip,
   Divider,
   Grid,
@@ -90,22 +91,28 @@ const PageCard = ({ id, name, lastUpdate }) => {
                 <MdPlayArrow fontSize={40} />
               </IconButton>
             </Stack>
-            <Divider />
-            <Stack direction="row" spacing={1}>
-              <Chip
-                label="تصميم وجهة الصفحة"
+            {/* <Divider /> */}
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <Button
                 variant="outlined"
                 color="primary"
+                size="medium"
                 clickable={true}
                 onClick={openGrapes}
-              />
-              <Chip
-                label="كود لغة عرب"
+                sx={{ fontWeight: "bold" }}
+              >
+                تصميم وجهة الصفحة
+              </Button>
+              <Button
                 variant="outlined"
-                color="secondary"
+                color="success"
+                size="medium"
                 clickable={true}
                 onClick={openEditor}
-              />
+                sx={{ fontWeight: "bold" }}
+              >
+                كود لغة عرب
+              </Button>
             </Stack>
             <Divider />
             <Stack
