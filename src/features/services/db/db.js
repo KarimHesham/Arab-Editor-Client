@@ -112,7 +112,7 @@ export const buildPage = async (pageId) => {
         project: res[0].name,
       };
 
-      fetch("http://waleedbaz-002-site7.htempurl.com/api/External", {
+      fetch("https://arabcode.ae/api/External", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -125,7 +125,7 @@ export const buildPage = async (pageId) => {
             .json()
             .then((res) => {
               window.open(
-                `http://waleedbaz-002-site7.htempurl.com/Log/Output/${res.session}.html`,
+                `https://arabcode.ae/Log/Output/${res.session}.html`,
                 "_blank"
               );
             })
