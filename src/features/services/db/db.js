@@ -93,3 +93,51 @@ export const deletePage = async (page, user, dispatch) => {
       console.log(err);
     });
 };
+
+export const buildPage = async (pageId) => {
+  getPage(pageId)
+    .then((res) => {
+      let input = {
+        html: `<html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>${res[0].name}</title>
+    <style>${res[0].code.css}</style>
+    </head>
+    ${res[0].code.html}
+    </html>`,
+        code: res[0].code.arab ? res[0].code.arab : "",
+        project: res[0].name,
+      };
+
+      fetch("http://waleedbaz-002-site7.htempurl.com/api/External", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify(input),
+      })
+        .then((res) => {
+          res
+            .json()
+            .then((res) => {
+              window.open(
+                `http://waleedbaz-002-site7.htempurl.com/Log/Output/${res.session}.html`,
+                "_blank"
+              );
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

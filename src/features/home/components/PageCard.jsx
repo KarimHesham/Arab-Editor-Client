@@ -18,6 +18,7 @@ import moment from "moment";
 import "moment/locale/ar";
 import { setActivePage } from "../../../redux/reducers/pagesSlice";
 import { getPage } from "../../services";
+import { buildPage } from "../../services/db/db";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fdfffc",
@@ -69,6 +70,12 @@ const PageCard = ({ id, name, lastUpdate }) => {
       });
   };
 
+  const runPage = (id) => {
+    buildPage(id).catch((err) => {
+      console.log(err);
+    });
+  };
+
   return (
     <>
       <Grid item xs={12} md={6} xl={4}>
@@ -85,7 +92,10 @@ const PageCard = ({ id, name, lastUpdate }) => {
               <IconButton
                 color="success"
                 aria-label="run page"
-                onClick={() => window.open("/output", "_blank")}
+                // onClick={() => window.open("/output", "_blank")}
+                onClick={() => {
+                  runPage(id);
+                }}
               >
                 <MdPlayArrow fontSize={40} />
               </IconButton>
@@ -96,7 +106,6 @@ const PageCard = ({ id, name, lastUpdate }) => {
                 variant="outlined"
                 color="primary"
                 size="medium"
-                clickable={true}
                 onClick={openGrapes}
                 sx={{ fontWeight: "bold" }}
               >
@@ -106,7 +115,6 @@ const PageCard = ({ id, name, lastUpdate }) => {
                 variant="outlined"
                 color="secondary"
                 size="medium"
-                clickable={true}
                 onClick={openEditor}
                 sx={{ fontWeight: "bold" }}
               >

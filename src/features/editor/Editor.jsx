@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { Navbar } from "../../components";
 import { setActivePage } from "../../redux/reducers/pagesSlice";
 import { getPage, updatePage } from "../services";
+import { buildPage } from "../services/db/db";
 
 const Editor = () => {
   const activePage = useSelector((state) => state.pages.activePage);
@@ -59,6 +60,12 @@ const Editor = () => {
         console.log(err);
       });
   }, []);
+
+  const runPage = (id) => {
+    buildPage(id).catch((err) => {
+      console.log(err);
+    });
+  };
 
   return (
     <Stack spacing={2} sx={{ minHeight: "100vh" }}>
@@ -110,7 +117,7 @@ const Editor = () => {
           <Button
             color="success"
             variant="contained"
-            onClick={() => window.open("/output", "_blank")}
+            onClick={() => runPage(activePage.id)}
           >
             <MdPlayArrow style={{ width: "35px", height: "35px" }} />
           </Button>

@@ -3,6 +3,7 @@ import { BiCodeBlock } from "react-icons/bi";
 import { IoMdPlay } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { buildPage } from "../../services/db/db";
 
 const Body = () => {
   const activePage = useSelector((state) => state.pages.activePage);
@@ -11,7 +12,11 @@ const Body = () => {
   const openEditor = () => {
     navigate(`/editor/${activePage.id}`);
   };
-
+  const runPage = (id) => {
+    buildPage(id).catch((err) => {
+      console.log(err);
+    });
+  };
   return (
     <Box
       sx={{
@@ -32,7 +37,7 @@ const Body = () => {
             <BiCodeBlock />
           </div>
           <div
-            onClick={() => window.open("/output", "_blank")}
+            onClick={() => runPage(activePage.id)}
             style={{ color: "#2e7d32" }}
             className="gjs-pn-btn gjs-two-color"
             title="تجربة الموقع"
