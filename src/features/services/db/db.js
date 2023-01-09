@@ -118,6 +118,7 @@ export const buildPage = async (pageId) => {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
+        referrerPolicy: "unsafe_url",
         body: JSON.stringify(input),
       })
         .then((res) => {
