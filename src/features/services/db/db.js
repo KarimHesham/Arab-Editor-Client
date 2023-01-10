@@ -94,11 +94,13 @@ export const deletePage = async (page, user, dispatch) => {
     });
 };
 
-export const buildPage = async (pageId, setRunModal) => {
-  getPage(pageId)
-    .then((res) => {
-      let input = {
-        html: `<html lang="en">
+export const buildPage = async (page, setRunModal) => {
+  PagesService.update("id", page.id, page, "", "page")
+    .then(() => {
+      getPage(page.id)
+        .then((res) => {
+          let input = {
+            html: `<html lang="en">
     <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -108,27 +110,31 @@ export const buildPage = async (pageId, setRunModal) => {
     </head>
     ${res[0].code.html}
     </html>`,
-        code: res[0].code.arab ? res[0].code.arab : "",
-        project: res[0].name,
-      };
+            code: res[0].code.arab ? res[0].code.arab : "",
+            project: res[0].name,
+          };
 
-      fetch("https://arabcode.ae/api/External", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify(input),
-      })
-        .then((res) => {
-          res
-            .json()
+          fetch("https://arabcode.ae/api/External", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            },
+            body: JSON.stringify(input),
+          })
             .then((res) => {
-              setRunModal(false);
-              window.open(
-                `https://arabcode.ae/Log/Output/${res.session}.html`,
-                "_blank"
-              );
+              res
+                .json()
+                .then((res) => {
+                  setRunModal(false);
+                  window.open(
+                    `https://arabcode.ae/Log/Output/${res.session}.html`,
+                    "_blank"
+                  );
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
             })
             .catch((err) => {
               console.log(err);

@@ -72,8 +72,8 @@ const PageCard = ({ id, name, lastUpdate }) => {
       });
   };
 
-  const runPage = (id) => {
-    buildPage(id, setRunModal).catch((err) => {
+  const runPage = () => {
+    buildPage({ id, name }, setRunModal).catch((err) => {
       console.log(err);
     });
   };

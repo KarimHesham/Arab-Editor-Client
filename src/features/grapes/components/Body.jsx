@@ -17,7 +17,7 @@ const Body = () => {
     navigate(`/editor/${activePage.id}`);
   };
   const runPage = (id) => {
-    buildPage(id, setRunModal).catch((err) => {
+    buildPage(activePage, setRunModal).catch((err) => {
       console.log(err);
     });
   };

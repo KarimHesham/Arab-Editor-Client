@@ -66,7 +66,13 @@ const Editor = () => {
   }, []);
 
   const runPage = (id) => {
-    buildPage(id, setRunModal).catch((err) => {
+    buildPage(
+      {
+        ...activePage,
+        code: { ...activePage.code, arab: codeInput },
+      },
+      setRunModal
+    ).catch((err) => {
       console.log(err);
     });
   };
