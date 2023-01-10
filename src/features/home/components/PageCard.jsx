@@ -84,7 +84,7 @@ const PageCard = ({ id, name, lastUpdate }) => {
         <Item elevation={2}>
           <Stack direction="column" spacing={2}>
             <Stack direction="row" alignItems="center">
-              <IconButton color="primary" onClick={openEditPageNameModal}>
+              <IconButton size="small" color="primary" onClick={openEditPageNameModal}>
                 <MdOutlineEdit />
               </IconButton>
               <Typography component="h3" variant="h3" fontWeight={500} noWrap>
