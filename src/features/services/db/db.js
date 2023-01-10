@@ -63,6 +63,7 @@ export const getPage = (id) => {
 export const updatePage = (page, user, oldPage, dispatch) => {
   PagesService.update("id", page.id, page, oldPage, "page")
     .then(() => {
+      console.log(user.uid, page, oldPage);
       UsersService.update("uid", user.uid, page, oldPage, "user")
         .then(() => {
           getUser(user.uid).then((res) => {

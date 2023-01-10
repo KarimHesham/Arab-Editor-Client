@@ -22,6 +22,7 @@ import { buildPage } from "../services/db/db";
 
 const Editor = () => {
   const activePage = useSelector((state) => state.pages.activePage);
+  const activeUser = useSelector((state) => state.user.user);
 
   const [codeInput, setCodeInput] = useState();
   const [toggleSideBar, setToggleSideBar] = useState(false);
@@ -65,7 +66,7 @@ const Editor = () => {
     // eslint-disable-next-line
   }, []);
 
-  const runPage = (id) => {
+  const runPage = () => {
     buildPage(
       {
         ...activePage,
@@ -116,7 +117,7 @@ const Editor = () => {
                   ...activePage,
                   code: { ...activePage.code, arab: codeInput },
                 },
-                "",
+                activeUser,
                 "",
                 dispatch
               )
