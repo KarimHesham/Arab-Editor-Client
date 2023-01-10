@@ -15,15 +15,18 @@ import { MdPlayArrow } from "react-icons/md";
 import { BiSave } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
-import { Navbar } from "../../components";
+import { Navbar, RunModal } from "../../components";
 import { setActivePage } from "../../redux/reducers/pagesSlice";
 import { getPage, updatePage } from "../services";
 import { buildPage } from "../services/db/db";
 
 const Editor = () => {
   const activePage = useSelector((state) => state.pages.activePage);
+
   const [codeInput, setCodeInput] = useState();
   const [toggleSideBar, setToggleSideBar] = useState(false);
+  const [runModal, setRunModal] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -62,7 +65,7 @@ const Editor = () => {
   }, []);
 
   const runPage = (id) => {
-    buildPage(id).catch((err) => {
+    buildPage(id, setRunModal).catch((err) => {
       console.log(err);
     });
   };
@@ -117,7 +120,10 @@ const Editor = () => {
           <Button
             color="success"
             variant="contained"
-            onClick={() => runPage(activePage.id)}
+            onClick={() => {
+              setRunModal(true);
+              runPage(activePage.id);
+            }}
           >
             <MdPlayArrow style={{ width: "35px", height: "35px" }} />
           </Button>
@@ -158,6 +164,7 @@ const Editor = () => {
           onChange={onChange}
         />
       </Stack>
+      <RunModal open={runModal} />
     </Stack>
   );
 };

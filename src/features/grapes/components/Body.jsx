@@ -1,11 +1,15 @@
 import { Box, Stack } from "@mui/material";
+import { useState } from "react";
 import { BiCodeBlock } from "react-icons/bi";
 import { IoMdPlay } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { RunModal } from "../../../components";
 import { buildPage } from "../../services/db/db";
 
 const Body = () => {
+  const [runModal, setRunModal] = useState(false);
+
   const activePage = useSelector((state) => state.pages.activePage);
   const navigate = useNavigate();
 
@@ -13,7 +17,7 @@ const Body = () => {
     navigate(`/editor/${activePage.id}`);
   };
   const runPage = (id) => {
-    buildPage(id).catch((err) => {
+    buildPage(id, setRunModal).catch((err) => {
       console.log(err);
     });
   };
@@ -37,7 +41,10 @@ const Body = () => {
             <BiCodeBlock />
           </div>
           <div
-            onClick={() => runPage(activePage.id)}
+            onClick={() => {
+              setRunModal(true);
+              runPage(activePage.id);
+            }}
             style={{ color: "#2e7d32" }}
             className="gjs-pn-btn gjs-two-color"
             title="تجربة الموقع"
@@ -48,6 +55,8 @@ const Body = () => {
         <Box id="panel__devices"></Box>
       </Stack>
       <div id="editor"></div>
+
+      <RunModal open={runModal} />
     </Box>
   );
 };

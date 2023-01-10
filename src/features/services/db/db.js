@@ -94,7 +94,7 @@ export const deletePage = async (page, user, dispatch) => {
     });
 };
 
-export const buildPage = async (pageId) => {
+export const buildPage = async (pageId, setRunModal) => {
   getPage(pageId)
     .then((res) => {
       let input = {
@@ -124,6 +124,7 @@ export const buildPage = async (pageId) => {
           res
             .json()
             .then((res) => {
+              setRunModal(false);
               window.open(
                 `https://arabcode.ae/Log/Output/${res.session}.html`,
                 "_blank"

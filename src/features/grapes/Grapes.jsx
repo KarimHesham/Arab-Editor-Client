@@ -11,6 +11,7 @@ import { panels, i18n, deviceManager, styleManager } from "./config";
 import "./styles/style.css";
 import { useSelector } from "react-redux";
 import { storageManager } from "./config/storageManager";
+import { RunModal } from "../../components";
 
 const MyBox = styled(Box)(({ theme }) => ({
   "& .gjs-one-bg": {

@@ -19,6 +19,7 @@ import "moment/locale/ar";
 import { setActivePage } from "../../../redux/reducers/pagesSlice";
 import { getPage } from "../../services";
 import { buildPage } from "../../services/db/db";
+import { RunModal } from "../../../components";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fdfffc",
@@ -34,6 +35,7 @@ const PageCard = ({ id, name, lastUpdate }) => {
 
   // modalType: addPage | deletePage | editPageName
   const [modalType, setModalType] = useState("");
+  const [runModal, setRunModal] = useState(false);
 
   const openEditPageNameModal = () => {
     setModalType("edit");
@@ -71,7 +73,7 @@ const PageCard = ({ id, name, lastUpdate }) => {
   };
 
   const runPage = (id) => {
-    buildPage(id).catch((err) => {
+    buildPage(id, setRunModal).catch((err) => {
       console.log(err);
     });
   };
@@ -94,6 +96,8 @@ const PageCard = ({ id, name, lastUpdate }) => {
                 aria-label="run page"
                 // onClick={() => window.open("/output", "_blank")}
                 onClick={() => {
+                  setRunModal(true);
+
                   runPage(id);
                 }}
               >
@@ -153,6 +157,7 @@ const PageCard = ({ id, name, lastUpdate }) => {
         modalType={modalType}
         pageInfo={{ id: id, name: name, lastUpdate: lastUpdate }}
       />
+      <RunModal open={runModal} />
     </>
   );
 };
