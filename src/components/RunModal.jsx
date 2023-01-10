@@ -15,7 +15,7 @@ const RunModal = ({ open }) => {
             spacing={2}
           >
             <DialogContentText gutterBottom>
-              ...جارى بناء الصفحه
+              جارى بناءالصفحه...
             </DialogContentText>
             <CircularProgress color="primary" />
           </Stack>
