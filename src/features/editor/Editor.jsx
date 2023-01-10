@@ -62,6 +62,7 @@ const Editor = () => {
       .catch((err) => {
         console.log(err);
       });
+    // eslint-disable-next-line
   }, []);
 
   const runPage = (id) => {

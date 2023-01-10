@@ -11,7 +11,6 @@ import { panels, i18n, deviceManager, styleManager } from "./config";
 import "./styles/style.css";
 import { useSelector } from "react-redux";
 import { storageManager } from "./config/storageManager";
-import { RunModal } from "../../components";
 
 const MyBox = styled(Box)(({ theme }) => ({
   "& .gjs-one-bg": {
@@ -41,6 +40,7 @@ const MyBox = styled(Box)(({ theme }) => ({
 }));
 
 const Grapes = () => {
+  // eslint-disable-next-line
   const [editor, setEditor] = useState(null);
   const activePage = useSelector((state) => state.pages.activePage);
 
@@ -92,6 +92,7 @@ const Grapes = () => {
     });
 
     setEditor(editor);
+    // eslint-disable-next-line
   }, [activePage.pageId]);
 
   return (

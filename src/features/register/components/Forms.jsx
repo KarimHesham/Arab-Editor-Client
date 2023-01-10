@@ -61,6 +61,7 @@ const Forms = () => {
     if (values.password === "") {
       touched.password = false;
     }
+    // eslint-disable-next-line
   }, [formType]);
 
   const [openModal, setOpenModal] = useState(false);
