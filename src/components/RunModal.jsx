@@ -8,7 +8,12 @@ const RunModal = ({ open }) => {
     <div>
       <Dialog open={open}>
         <DialogContent>
-          <Stack direction="column" justifyContent="center" alignItems="center">
+          <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+          >
             <DialogContentText gutterBottom>
               ...جارى بناء الصفحه
             </DialogContentText>
