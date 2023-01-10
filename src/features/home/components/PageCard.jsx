@@ -83,47 +83,65 @@ const PageCard = ({ id, name, lastUpdate }) => {
       <Grid item xs={12} md={6} xl={4}>
         <Item elevation={2}>
           <Stack direction="column" spacing={2}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
+            <Stack direction="row" alignItems="center">
+              <IconButton color="primary" onClick={openEditPageNameModal}>
+                <MdOutlineEdit />
+              </IconButton>
               <Typography component="h3" variant="h3" fontWeight={500} noWrap>
                 {name}
               </Typography>
+
+              {/* <IconButton
+                color="success"
+                aria-label="run page"
+                // onClick={() => window.open("/output", "_blank")}
+                onClick={() => {
+                  setRunModal(true);
+                  runPage(id);
+                }}
+              >
+                <MdPlayArrow fontSize={40} />
+              </IconButton> */}
+            </Stack>
+            {/* <Divider /> */}
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              spacing={1}
+            >
+              <Stack direction="row" spacing={1}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  size="medium"
+                  onClick={openGrapes}
+                  sx={{ fontWeight: "bold" }}
+                >
+                  تصميم واجهة الصفحة
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  size="medium"
+                  onClick={openEditor}
+                  sx={{ fontWeight: "bold" }}
+                >
+                  كود لغة عرب
+                </Button>
+              </Stack>
+
               <IconButton
                 color="success"
                 aria-label="run page"
                 // onClick={() => window.open("/output", "_blank")}
                 onClick={() => {
                   setRunModal(true);
-
                   runPage(id);
                 }}
               >
                 <MdPlayArrow fontSize={40} />
               </IconButton>
-            </Stack>
-            {/* <Divider /> */}
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Button
-                variant="outlined"
-                color="primary"
-                size="medium"
-                onClick={openGrapes}
-                sx={{ fontWeight: "bold" }}
-              >
-                تصميم واجهة الصفحة
-              </Button>
-              <Button
-                variant="outlined"
-                color="secondary"
-                size="medium"
-                onClick={openEditor}
-                sx={{ fontWeight: "bold" }}
-              >
-                كود لغة عرب
-              </Button>
             </Stack>
             <Divider />
             <Stack
@@ -132,9 +150,6 @@ const PageCard = ({ id, name, lastUpdate }) => {
               alignItems="center"
             >
               <Box>
-                <IconButton color="primary" onClick={openEditPageNameModal}>
-                  <MdOutlineEdit />
-                </IconButton>
                 <IconButton color="error" onClick={openDeletePageModal}>
                   <MdDeleteOutline />
                 </IconButton>
