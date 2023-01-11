@@ -16,8 +16,6 @@ import { setLoading, setMessage } from "../../../redux/reducers/loadingSlice";
 
 const Modal = ({ open, handleClose, modalType, pageInfo }) => {
   const activeUser = useSelector((state) => state.user.user);
-  const loading = useSelector((state) => state.loading.isLoading);
-  const loadingMessage = useSelector((state) => state.loading.message);
 
   const dispatch = useDispatch();
 

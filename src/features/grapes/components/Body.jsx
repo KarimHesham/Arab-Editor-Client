@@ -1,5 +1,4 @@
 import { Box, Stack } from "@mui/material";
-import { useState } from "react";
 import { BiCodeBlock } from "react-icons/bi";
 import { IoMdPlay } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
