@@ -37,27 +37,35 @@ const Modal = ({ open, handleClose, modalType, pageInfo }) => {
       onSubmit: (values, actions) => {
         switch (modalType) {
           case "create":
-            setLoadingMessage("جارى إنشاء الصفحه...");
-            setLoadingState(true);
-            createPage(
-              { name: values.name, username: activeUser.username },
-              activeUser.uid,
-              dispatch,
-              setLoadingState,
-              setLoadingMessage
-            );
+            if (values.name !== "") {
+              setLoadingMessage("جارى إنشاء الصفحه...");
+              setLoadingState(true);
+              createPage(
+                { name: values.name, username: activeUser.username },
+                activeUser.uid,
+                dispatch,
+                setLoadingState,
+                setLoadingMessage
+              );
+              handleClose();
+            }
+
             break;
           case "edit":
-            setLoadingMessage("جارى التحديث...");
-            setLoadingState(true);
-            updatePage(
-              { id: pageInfo?.id, name: values.name },
-              activeUser,
-              pageInfo,
-              dispatch,
-              setLoadingState,
-              setLoadingMessage
-            );
+            if (values.name !== "") {
+              setLoadingMessage("جارى التحديث...");
+              setLoadingState(true);
+              updatePage(
+                { id: pageInfo?.id, name: values.name },
+                activeUser,
+                pageInfo,
+                dispatch,
+                setLoadingState,
+                setLoadingMessage
+              );
+              handleClose();
+            }
+
             break;
           case "delete":
             // setLoadingMessage("جارى مسح الصفحه...");
@@ -82,7 +90,8 @@ const Modal = ({ open, handleClose, modalType, pageInfo }) => {
     if (values.name === "") {
       touched.name = false;
     }
-  }, [touched, values.name]);
+    // eslint-disable-next-line
+  }, [modalType]);
 
   return (
     <div>
@@ -123,7 +132,7 @@ const Modal = ({ open, handleClose, modalType, pageInfo }) => {
                 type="submit"
                 variant="contained"
                 color={modalType === "delete" ? "error" : "primary"}
-                onClick={handleClose}
+                onClick={modalType === "delete" ? handleClose : null}
               >
                 {modalType === "create"
                   ? "إضافة"
