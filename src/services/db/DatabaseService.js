@@ -83,7 +83,7 @@ class DatabaseService {
       );
 
       if (action === "user") {
-        const docRef = await doc(db, this.collectionName, foundDoc.id);
+        const docRef = doc(db, this.collectionName, foundDoc.id);
 
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
