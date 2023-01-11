@@ -17,6 +17,9 @@ import { setLoading, setMessage } from "../../../redux/reducers/loadingSlice";
 const Modal = ({ open, handleClose, modalType, pageInfo }) => {
   const activeUser = useSelector((state) => state.user.user);
 
+  const initialValues =
+    modalType === "delete" ? { name: "" } : { name: pageInfo?.name || "" };
+
   const dispatch = useDispatch();
 
   const setLoadingState = (isLoading) => {
@@ -29,12 +32,7 @@ const Modal = ({ open, handleClose, modalType, pageInfo }) => {
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      initialValues:
-        modalType === "delete"
-          ? null
-          : {
-              name: pageInfo?.name,
-            },
+      initialValues: initialValues,
       validationSchema: modalType === "delete" ? null : pageNameValidation,
       onSubmit: (values, actions) => {
         switch (modalType) {
@@ -112,6 +110,7 @@ const Modal = ({ open, handleClose, modalType, pageInfo }) => {
                 onBlur={handleBlur}
                 variant="standard"
                 fullWidth
+                required
                 error={errors.name && touched.name}
                 helperText={touched.name && errors.name}
               />
