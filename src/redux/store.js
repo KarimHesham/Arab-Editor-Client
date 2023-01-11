@@ -3,7 +3,7 @@ import storage from "redux-persist/lib/storage";
 import hardSet from "redux-persist/lib/stateReconciler/hardSet";
 import thunk from "redux-thunk";
 import { persistReducer, persistStore } from "redux-persist";
-import { pagesSlice, themeSlice, userSlice } from "./reducers";
+import { loadingSlice, pagesSlice, themeSlice, userSlice } from "./reducers";
 
 const persistConfig = {
   key: "root",
@@ -15,6 +15,7 @@ const rootReducer = combineReducers({
   theme: themeSlice,
   user: userSlice,
   pages: pagesSlice,
+  loading: loadingSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
