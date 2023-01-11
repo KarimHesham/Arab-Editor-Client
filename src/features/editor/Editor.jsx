@@ -129,7 +129,9 @@ const Editor = () => {
                 },
                 activeUser,
                 "",
-                dispatch
+                dispatch,
+                setLoadingState,
+                setLoadingMessage
               )
             }
           >
