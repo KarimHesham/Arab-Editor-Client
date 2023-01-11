@@ -15,24 +15,33 @@ import { MdPlayArrow } from "react-icons/md";
 import { BiSave } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
-import { Navbar, RunModal } from "../../components";
+import { Navbar, LoadingIndicator } from "../../components";
 import { setActivePage } from "../../redux/reducers/pagesSlice";
 import { getPage, updatePage } from "../services";
 import { buildPage } from "../services/db/db";
+import { setLoading, setMessage } from "../../redux/reducers/loadingSlice";
 
 const Editor = () => {
   const activePage = useSelector((state) => state.pages.activePage);
   const activeUser = useSelector((state) => state.user.user);
+  const loading = useSelector((state) => state.loading.isLoading);
+  const loadingMessage = useSelector((state) => state.loading.message);
+  const theme = useSelector((state) => state.theme.darkMode);
+  const pages = useSelector((state) => state.user.user.pages);
 
   const [codeInput, setCodeInput] = useState();
   const [toggleSideBar, setToggleSideBar] = useState(false);
-  const [runModal, setRunModal] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const theme = useSelector((state) => state.theme.darkMode);
-  const pages = useSelector((state) => state.user.user.pages);
+  const setLoadingState = (isLoading) => {
+    dispatch(setLoading(isLoading));
+  };
+
+  const setLoadingMessage = (msg) => {
+    dispatch(setMessage(msg));
+  };
 
   const onChange = useCallback((value, viewUpdate) => {
     console.log("userCode:", value);
@@ -72,7 +81,8 @@ const Editor = () => {
         ...activePage,
         code: { ...activePage.code, arab: codeInput },
       },
-      setRunModal
+      setLoadingState,
+      setLoadingMessage
     ).catch((err) => {
       console.log(err);
     });
@@ -129,8 +139,9 @@ const Editor = () => {
             color="success"
             variant="contained"
             onClick={() => {
-              setRunModal(true);
-              runPage(activePage.id);
+              setLoadingMessage("جارى بناء الصفحه...");
+              setLoadingState(true);
+              runPage();
             }}
           >
             <MdPlayArrow style={{ width: "35px", height: "35px" }} />
@@ -172,7 +183,7 @@ const Editor = () => {
           onChange={onChange}
         />
       </Stack>
-      <RunModal open={runModal} />
+      <LoadingIndicator open={loading} msg={loadingMessage} />
     </Stack>
   );
 };

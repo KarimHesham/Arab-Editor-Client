@@ -1,2 +1,2 @@
 export { default as Navbar } from "./Navbar";
-export { default as RunModal } from "./RunModal";
+export { default as LoadingIndicator } from "./LoadingIndicator";

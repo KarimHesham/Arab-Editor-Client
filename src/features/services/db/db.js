@@ -20,7 +20,13 @@ export const getUser = (uid) => {
   return UsersService.getAll("uid", uid);
 };
 
-export const createPage = (page, uid, dispatch) => {
+export const createPage = (
+  page,
+  uid,
+  dispatch,
+  setLoadingState,
+  setLoadingMessage
+) => {
   const newPage = {
     ...page,
     content: null,
@@ -45,6 +51,8 @@ export const createPage = (page, uid, dispatch) => {
           .then((res) => {
             console.log(res[0]);
             dispatch(setUser({ ...res[0] }));
+            setLoadingState(false);
+            setLoadingMessage("");
           })
           .catch((err) => {
             console.log(err);
@@ -60,7 +68,14 @@ export const getPage = (id) => {
   return PagesService.getAll("id", id);
 };
 
-export const updatePage = (page, user, oldPage, dispatch) => {
+export const updatePage = (
+  page,
+  user,
+  oldPage,
+  dispatch,
+  setLoadingState,
+  setLoadingMessage
+) => {
   PagesService.update("id", page.id, page, oldPage, "page")
     .then(() => {
       console.log(user.uid, page, oldPage);
@@ -69,6 +84,8 @@ export const updatePage = (page, user, oldPage, dispatch) => {
           getUser(user.uid).then((res) => {
             dispatch(setUser({ ...res[0] }));
           });
+          setLoadingState(false);
+          setLoadingMessage("");
         })
         .catch((err) => {
           console.log(err);
@@ -79,12 +96,20 @@ export const updatePage = (page, user, oldPage, dispatch) => {
     });
 };
 
-export const deletePage = async (page, user, dispatch) => {
+export const deletePage = async (
+  page,
+  user,
+  dispatch,
+  setLoadingState,
+  setLoadingMessage
+) => {
   PagesService.remove(page, user.username)
     .then(() => {
       getUser(user.uid)
         .then((res) => {
           dispatch(setUser({ ...res[0] }));
+          setLoadingState(false);
+          setLoadingMessage("");
         })
         .catch((err) => {
           console.log(err);
@@ -95,7 +120,7 @@ export const deletePage = async (page, user, dispatch) => {
     });
 };
 
-export const buildPage = async (page, setRunModal) => {
+export const buildPage = async (page, setLoadingState, setLoadingMessage) => {
   PagesService.update("id", page.id, page, "", "page")
     .then(() => {
       getPage(page.id)
@@ -127,7 +152,9 @@ export const buildPage = async (page, setRunModal) => {
               res
                 .json()
                 .then((res) => {
-                  setRunModal(false);
+                  setLoadingState(false);
+                  setLoadingMessage("");
+
                   window.open(
                     `https://arabcode.ae/Log/Output/${res.session}.html`,
                     "_blank"

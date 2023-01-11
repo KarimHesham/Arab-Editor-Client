@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogContentText } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Stack } from "@mui/system";
 
-const RunModal = ({ open }) => {
+const LoadingIndicator = ({ open, msg }) => {
   return (
     <div>
       <Dialog open={open}>
@@ -14,9 +14,10 @@ const RunModal = ({ open }) => {
             alignItems="center"
             spacing={2}
           >
-            <DialogContentText gutterBottom>
-              جارى بناءالصفحه...
-            </DialogContentText>
+            {msg ? (
+              <DialogContentText gutterBottom>{msg}</DialogContentText>
+            ) : null}
+
             <CircularProgress color="primary" />
           </Stack>
         </DialogContent>
@@ -25,4 +26,4 @@ const RunModal = ({ open }) => {
   );
 };
 
-export default RunModal;
+export default LoadingIndicator;

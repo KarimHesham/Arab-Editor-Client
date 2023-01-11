@@ -13,13 +13,14 @@ import {
 import { MdOutlineEdit, MdDeleteOutline, MdPlayArrow } from "react-icons/md";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/ar";
 import { setActivePage } from "../../../redux/reducers/pagesSlice";
 import { getPage } from "../../services";
 import { buildPage } from "../../services/db/db";
-import { RunModal } from "../../../components";
+import { LoadingIndicator } from "../../../components";
+import { setLoading, setMessage } from "../../../redux/reducers/loadingSlice";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fdfffc",
@@ -27,15 +28,26 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const PageCard = ({ id, name, lastUpdate }) => {
+  const loading = useSelector((state) => state.loading.isLoading);
+  const loadingMessage = useSelector((state) => state.loading.message);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const setLoadingState = (isLoading) => {
+    dispatch(setLoading(isLoading));
+  };
+
+  const setLoadingMessage = (msg) => {
+    dispatch(setMessage(msg));
+  };
+
   const [open, setOpen] = useState(false);
 
   moment.locale("ar");
 
   // modalType: addPage | deletePage | editPageName
   const [modalType, setModalType] = useState("");
-  const [runModal, setRunModal] = useState(false);
 
   const openEditPageNameModal = () => {
     setModalType("edit");
@@ -73,7 +85,7 @@ const PageCard = ({ id, name, lastUpdate }) => {
   };
 
   const runPage = () => {
-    buildPage({ id, name }, setRunModal).catch((err) => {
+    buildPage({ id, name }, setLoadingState, setLoadingMessage).catch((err) => {
       console.log(err);
     });
   };
@@ -84,7 +96,11 @@ const PageCard = ({ id, name, lastUpdate }) => {
         <Item elevation={2}>
           <Stack direction="column" spacing={2}>
             <Stack direction="row" alignItems="center">
-              <IconButton size="small" color="primary" onClick={openEditPageNameModal}>
+              <IconButton
+                size="small"
+                color="primary"
+                onClick={openEditPageNameModal}
+              >
                 <MdOutlineEdit />
               </IconButton>
               <Typography component="h3" variant="h3" fontWeight={500} noWrap>
@@ -136,8 +152,9 @@ const PageCard = ({ id, name, lastUpdate }) => {
                 aria-label="run page"
                 // onClick={() => window.open("/output", "_blank")}
                 onClick={() => {
-                  setRunModal(true);
-                  runPage(id);
+                  setLoadingMessage("جارى بناء الصفحه...");
+                  setLoadingState(true);
+                  runPage();
                 }}
               >
                 <MdPlayArrow fontSize={40} />
@@ -172,7 +189,7 @@ const PageCard = ({ id, name, lastUpdate }) => {
         modalType={modalType}
         pageInfo={{ id: id, name: name, lastUpdate: lastUpdate }}
       />
-      <RunModal open={runModal} />
+      <LoadingIndicator open={loading} msg={loadingMessage} />
     </>
   );
 };

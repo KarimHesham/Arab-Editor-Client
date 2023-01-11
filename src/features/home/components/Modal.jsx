@@ -12,10 +12,22 @@ import { useFormik } from "formik";
 import { pageNameValidation } from "../../../utils/validation";
 import { createPage, deletePage, updatePage } from "../../services";
 import { useDispatch, useSelector } from "react-redux";
+import { setLoading, setMessage } from "../../../redux/reducers/loadingSlice";
 
 const Modal = ({ open, handleClose, modalType, pageInfo }) => {
   const activeUser = useSelector((state) => state.user.user);
+  const loading = useSelector((state) => state.loading.isLoading);
+  const loadingMessage = useSelector((state) => state.loading.message);
+
   const dispatch = useDispatch();
+
+  const setLoadingState = (isLoading) => {
+    dispatch(setLoading(isLoading));
+  };
+
+  const setLoadingMessage = (msg) => {
+    dispatch(setMessage(msg));
+  };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -29,22 +41,38 @@ const Modal = ({ open, handleClose, modalType, pageInfo }) => {
       onSubmit: (values, actions) => {
         switch (modalType) {
           case "create":
+            setLoadingMessage("جارى إنشاء الصفحه...");
+            setLoadingState(true);
             createPage(
               { name: values.name, username: activeUser.username },
               activeUser.uid,
-              dispatch
+              dispatch,
+              setLoadingState,
+              setLoadingMessage
             );
             break;
           case "edit":
+            setLoadingMessage("جارى التحديث...");
+            setLoadingState(true);
             updatePage(
               { id: pageInfo?.id, name: values.name },
               activeUser,
               pageInfo,
-              dispatch
+              dispatch,
+              setLoadingState,
+              setLoadingMessage
             );
             break;
           case "delete":
-            deletePage(pageInfo, activeUser, dispatch);
+            // setLoadingMessage("جارى مسح الصفحه...");
+            setLoadingState(true);
+            deletePage(
+              pageInfo,
+              activeUser,
+              dispatch,
+              setLoadingState,
+              setLoadingMessage
+            );
             break;
           default:
             break;

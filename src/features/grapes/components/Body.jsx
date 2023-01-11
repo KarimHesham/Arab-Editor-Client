@@ -2,22 +2,33 @@ import { Box, Stack } from "@mui/material";
 import { useState } from "react";
 import { BiCodeBlock } from "react-icons/bi";
 import { IoMdPlay } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { RunModal } from "../../../components";
+import { LoadingIndicator } from "../../../components";
+import { setLoading, setMessage } from "../../../redux/reducers/loadingSlice";
 import { buildPage } from "../../services/db/db";
 
 const Body = () => {
-  const [runModal, setRunModal] = useState(false);
-
+  const loading = useSelector((state) => state.loading.isLoading);
+  const loadingMessage = useSelector((state) => state.loading.message);
   const activePage = useSelector((state) => state.pages.activePage);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const setLoadingState = (isLoading) => {
+    dispatch(setLoading(isLoading));
+  };
+
+  const setLoadingMessage = (msg) => {
+    dispatch(setMessage(msg));
+  };
 
   const openEditor = () => {
     navigate(`/editor/${activePage.id}`);
   };
-  const runPage = (id) => {
-    buildPage(activePage, setRunModal).catch((err) => {
+  const runPage = () => {
+    buildPage(activePage, setLoadingState, setLoadingMessage).catch((err) => {
       console.log(err);
     });
   };
@@ -42,8 +53,9 @@ const Body = () => {
           </div>
           <div
             onClick={() => {
-              setRunModal(true);
-              runPage(activePage.id);
+              setLoadingMessage("جارى بناء الصفحه...");
+              setLoadingState(true);
+              runPage();
             }}
             style={{ color: "#2e7d32" }}
             className="gjs-pn-btn gjs-two-color"
@@ -56,7 +68,7 @@ const Body = () => {
       </Stack>
       <div id="editor"></div>
 
-      <RunModal open={runModal} />
+      <LoadingIndicator open={loading} msg={loadingMessage} />
     </Box>
   );
 };
