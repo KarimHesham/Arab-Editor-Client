@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import { IoAddOutline } from "react-icons/io5";
-import { Navbar } from "../../components";
+import { LoadingIndicator, Navbar } from "../../components";
 import { PageCard, Modal } from "./components";
 import { useSelector } from "react-redux";
 
 const Home = () => {
   const activeUser = useSelector((state) => state.user.user);
+  const loading = useSelector((state) => state.loading.isLoading);
+  const loadingMessage = useSelector((state) => state.loading.message);
 
   const [open, setOpen] = useState(false);
 
@@ -101,6 +103,7 @@ const Home = () => {
         </Box>
       </Stack>
       <Modal open={open} handleClose={handleClose} modalType={modalType} />
+      <LoadingIndicator open={loading} msg={loadingMessage} />
     </>
   );
 };
