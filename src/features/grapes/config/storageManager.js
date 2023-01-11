@@ -15,7 +15,7 @@ export const storageManager = (page) => {
     },
     options: {
       remote: {
-        urlLoad: `https://firestore.googleapis.com/v1/projects/arab-editor/databases/(default)/documents/pages/${page.id}?mask.fieldPaths=content`,
+        urlLoad: `${process.env.REACT_APP_GRAPES_FIRESTORE_URL}/${page.id}?mask.fieldPaths=content`,
 
         onStore: (data, editor) => {
           const htmlCode = editor.getHtml();

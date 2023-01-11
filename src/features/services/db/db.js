@@ -140,7 +140,7 @@ export const buildPage = async (page, setLoadingState, setLoadingMessage) => {
             project: res[0].name,
           };
 
-          fetch("https://arabcode.ae/api/External", {
+          fetch(process.env.REACT_APP_ARAB_COMPILER_API, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -156,7 +156,7 @@ export const buildPage = async (page, setLoadingState, setLoadingMessage) => {
                   setLoadingMessage("");
 
                   window.open(
-                    `https://arabcode.ae/Log/Output/${res.session}.html`,
+                    `${process.env.REACT_APP_ARAB_SERVER}/${res.session}.html`,
                     "_blank"
                   );
                 })
